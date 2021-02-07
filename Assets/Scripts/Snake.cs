@@ -9,6 +9,7 @@ public class Snake : MonoBehaviour
     // (by default it moves to the right)
     Vector2 dir = Vector2.right;
 
+
     // snake disappears offscreen and reappears on the other side
     // scales to screen
      float leftConstraint = Screen.width;
@@ -62,6 +63,7 @@ public class Snake : MonoBehaviour
             transform.rotation = Quaternion.Euler(Vector3.forward * 90);
         }
     }
+
    
     void Move() {
       
@@ -73,17 +75,17 @@ public class Snake : MonoBehaviour
     void FixedUpdate() {
         // snake is past world-space view
         // moves snake to the opposite side
-         if (transform.position.x < leftConstraint - buffer) {
-             transform.position = new Vector3(rightConstraint + buffer, transform.position.y, transform.position.z);
+         if (transform.position.x - buffer  < leftConstraint) {
+             transform.position = new Vector3(rightConstraint - buffer, transform.position.y, transform.position.z);
          }
-         if (transform.position.x > rightConstraint + buffer) {
-             transform.position = new Vector3(leftConstraint - buffer, transform.position.y, transform.position.z);
+         if (transform.position.x > rightConstraint - buffer) {
+             transform.position = new Vector3(leftConstraint + buffer, transform.position.y, transform.position.z);
          }
-         if (transform.position.y < bottomConstraint - buffer) {
-             transform.position = new Vector3(transform.position.x, topConstraint + buffer, transform.position.z);
+         if (transform.position.y - buffer < bottomConstraint) {
+             transform.position = new Vector3(transform.position.x, topConstraint - buffer, transform.position.z);
          }
-         if (transform.position.y > topConstraint + buffer) {
-             transform.position = new Vector3(transform.position.x, bottomConstraint - buffer, transform.position.z);
+         if (transform.position.y > topConstraint - buffer) {
+             transform.position = new Vector3(transform.position.x, bottomConstraint + buffer, transform.position.z);
          }
      }
 }
