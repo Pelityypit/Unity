@@ -1,91 +1,93 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
+using CodeMonkey.Utils;
 
-public class Snake : MonoBehaviour
-{
-    // Current Movement Direction
-    // (by default it moves to the right)
-    Vector2 dir = Vector2.right;
+public class Snake : MonoBehaviour {
 
+    private Vector2Int gridPosition; // määrittelee käärmeen sijainnin
+    private Vector2Int gridMoveDirection; // määrittelee automaattisen liikkeen suunnan
+    private float gridMoveTimer; // määrittelee ajan seuraavaan liikeeseen
+    private float gridMoveTimerMax; // määrittelee ajan liikkeiden välillä, eli käärmeen liikkumisnopeuden
+    private LevelGrid levelGrid;
 
-    // snake disappears offscreen and reappears on the other side
-    // scales to screen
-     float leftConstraint = Screen.width;
-     float rightConstraint = Screen.width;
-     float bottomConstraint = Screen.height;
-     float topConstraint = Screen.height;
-     float buffer = 1.0f;
-     Camera cam;
-     float distanceZ;
-
+    public void Setup(LevelGrid levelGrid) {
+        this.levelGrid = levelGrid;
+    }
     
-    void Start () {
-        // Move the Snake every 300ms
-        InvokeRepeating("Move", 0.3f, 0.3f);    
-         // this will find a world-space point that is relative to the screen
-        cam = Camera.main;
-        distanceZ = Mathf.Abs(cam.transform.position.z + transform.position.z);
-        leftConstraint = cam.ScreenToWorldPoint(new Vector3(0.0f, 0.0f, distanceZ)).x;
-        rightConstraint = cam.ScreenToWorldPoint(new Vector3(Screen.width, 0.0f, distanceZ)).x;
-        bottomConstraint = cam.ScreenToWorldPoint(new Vector3(0.0f, 0.0f, distanceZ)).y;
-        topConstraint = cam.ScreenToWorldPoint(new Vector3(0.0f, Screen.height, distanceZ)).y;
+    private void Awake() {
+        gridPosition = new Vector2Int(10, 10); // asetetaan sijainti: x=10, y=10
+        gridMoveTimerMax = 0.2f; // liikkumisnopeus: mitä pienempi arvo, sitä useampi liike per frame
+        gridMoveTimer = gridMoveTimerMax;
+        gridMoveDirection = new Vector2Int(1, 0);  // alustetaan käärme liikkumaan yksi yksikkö x-akselilla, eli eteenpäin
+
     }
-   
+
+    // Update is called once per frame
+    void Update() {
+        HandleInput();
+        HandleGridMovement();
+    }
+
+    // -- LIIKKUMINEN --
+    // määritetään liikkumisnapit: wasd ja nuolinapit
+    // määritetään liikkumissuunnat, asetetaan x ja y-askeleille arvot suunnan mukaisesti
+    // ylöspäin liikkuessa x=0 ja y=+1 koska liikutaan vertikaalisesti mutta ei horisontaalisesti
+    private void HandleInput() {
+     
+        if (Input.GetKeyDown(KeyCode.UpArrow)) { 
+            if (gridMoveDirection.y != -1) { // jos emme liiku alaspäin, voimme liikkua ylöspäin
+                gridMoveDirection.x = 0;
+                gridMoveDirection.y = +1;
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.DownArrow)) { 
+            if (gridMoveDirection.y != +1) {
+                gridMoveDirection.x = 0;
+                gridMoveDirection.y = -1;
+            }
+        } 
+        if (Input.GetKeyDown(KeyCode.LeftArrow)) { 
+            if (gridMoveDirection.x != +1) {
+                gridMoveDirection.x = -1;
+                gridMoveDirection.y = 0;
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.RightArrow)) { 
+            if (gridMoveDirection.x != -1) {
+                gridMoveDirection.x = +1;
+                gridMoveDirection.y = 0;
+            }
+        }
+    }
+
+    // -- KENTÄN PÄIVITYS -- 
+    private void HandleGridMovement() {
+        gridMoveTimer += Time.deltaTime;
+        if (gridMoveTimer >= gridMoveTimerMax) {
+            gridPosition += gridMoveDirection;
+            gridMoveTimer -= gridMoveTimerMax;
+
+            // päivitetään käärmeen sijainti gridPositionin x ja y arvoilla
+            transform.position = new Vector3(gridPosition.x, gridPosition.y);
+            // haetaan pään kääntyminen Vector2Intin kulmasta (z-akseli), joka saa parametrina pään suunnan
+            // euler angle on oikea termi z-akselille
+            // kulmasta pitää vähentää 90 astetta, koska unityssä 0-arvo osoittaa oikealle
+            transform.eulerAngles = new Vector3(0, 0, GetAngleFromVector(gridMoveDirection) -90);
+
+            levelGrid.SnakeMoved(gridPosition);
+        }
+    }
+
+    // määritetään pään kulma kääntyessä
+    private float GetAngleFromVector(Vector2Int dir) {
+        float n = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        if (n < 0) n += 360;
+        return n;
+    }
     
-    void Update () {
-    // Move in a new Direction?
-    // if (!isDied) is added later, snake only moves if it's alive
-    // Now the whole snake rotates when it's moved up, down or to the sides
-    // As defined above the snake by default moves to the right
-    // What is Quaternion.Euler???
-    //  = Quaternions are used to represent rotations
-    /* = Euler angles can represent a three dimensional rotation by performing
-        three separate rotations around individual axes. */
-    if (Input.GetKey(KeyCode.RightArrow))
-        {
-            transform.rotation = Quaternion.Euler(Vector3.zero);
-        }
-        // if pressed down rotate -90
-        else if (Input.GetKey(KeyCode.DownArrow))
-        {
-            transform.rotation = Quaternion.Euler(Vector3.forward * -90);
-        }
-        // if pressed left rotate 180
-        else if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            transform.rotation = Quaternion.Euler(Vector3.forward * 180);
-        }
-        // if pressed up rotate 90
-        else if (Input.GetKey(KeyCode.UpArrow))
-        {
-            transform.rotation = Quaternion.Euler(Vector3.forward * 90);
-        }
+    public Vector2Int GetGridPosition() {
+        return gridPosition;
     }
 
-   
-    void Move() {
-      
-        // Move head into new direction
-        transform.Translate(dir);
- 
-    }
-
-    void FixedUpdate() {
-        // snake is past world-space view
-        // moves snake to the opposite side
-         if (transform.position.x - buffer  < leftConstraint) {
-             transform.position = new Vector3(rightConstraint - buffer, transform.position.y, transform.position.z);
-         }
-         if (transform.position.x > rightConstraint - buffer) {
-             transform.position = new Vector3(leftConstraint + buffer, transform.position.y, transform.position.z);
-         }
-         if (transform.position.y - buffer < bottomConstraint) {
-             transform.position = new Vector3(transform.position.x, topConstraint - buffer, transform.position.z);
-         }
-         if (transform.position.y > topConstraint - buffer) {
-             transform.position = new Vector3(transform.position.x, bottomConstraint + buffer, transform.position.z);
-         }
-     }
 }
