@@ -67,7 +67,7 @@ public class Snake : MonoBehaviour
    
     void Move() {
       
-        // Move head into new direction
+        // Move head into new directionn
         transform.Translate(dir);
  
     }
