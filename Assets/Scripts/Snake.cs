@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using CodeMonkey;
 using CodeMonkey.Utils;
 
 public class Snake : MonoBehaviour {
@@ -10,9 +11,12 @@ public class Snake : MonoBehaviour {
     private float gridMoveTimer; // määrittelee ajan seuraavaan liikeeseen
     private float gridMoveTimerMax; // määrittelee ajan liikkeiden välillä, eli käärmeen liikkumisnopeuden
     private LevelGrid levelGrid;
+    private int snakeBodySize;
+    private List<Vector2Int> snakeMovePositionList;
 
     public void Setup(LevelGrid levelGrid) {
         this.levelGrid = levelGrid;
+        
     }
     
     private void Awake() {
@@ -21,12 +25,15 @@ public class Snake : MonoBehaviour {
         gridMoveTimer = gridMoveTimerMax;
         gridMoveDirection = new Vector2Int(1, 0);  // alustetaan käärme liikkumaan yksi yksikkö x-akselilla, eli eteenpäin
 
+        snakeMovePositionList = new List<Vector2Int>();
+        snakeBodySize = 0;
     }
 
     // Update is called once per frame
     void Update() {
         HandleInput();
         HandleGridMovement();
+
     }
 
     // -- LIIKKUMINEN --
@@ -68,6 +75,29 @@ public class Snake : MonoBehaviour {
             gridPosition += gridMoveDirection;
             gridMoveTimer -= gridMoveTimerMax;
 
+            snakeMovePositionList.Insert(0, gridPosition);
+            gridPosition += gridMoveDirection;
+
+            bool snakeAteFood = levelGrid.TrySnakeEatFood(gridPosition);
+            if (snakeAteFood)
+            {
+                //Käärme syö ruokaa ja kasvaa
+                snakeBodySize++;
+            }
+
+
+            if (snakeMovePositionList.Count >= snakeBodySize + 1) {
+                snakeMovePositionList.RemoveAt(snakeMovePositionList.Count - 1);
+
+            }
+
+            for (int i = 0; i < snakeMovePositionList.Count; i++) 
+            {
+                Vector2Int snakeMovePosition = snakeMovePositionList[i];
+                World_Sprite worldSprite = World_Sprite.Create(new Vector3(snakeMovePosition.x, snakeMovePosition.y), Vector3.one * .5f, Color.white);
+                FunctionTimer.Create(worldSprite.DestroySelf, gridMoveTimerMax);
+                    
+            }
             // päivitetään käärmeen sijainti gridPositionin x ja y arvoilla
             transform.position = new Vector3(gridPosition.x, gridPosition.y);
             // haetaan pään kääntyminen Vector2Intin kulmasta (z-akseli), joka saa parametrina pään suunnan
@@ -75,7 +105,6 @@ public class Snake : MonoBehaviour {
             // kulmasta pitää vähentää 90 astetta, koska unityssä 0-arvo osoittaa oikealle
             transform.eulerAngles = new Vector3(0, 0, GetAngleFromVector(gridMoveDirection) -90);
 
-            levelGrid.SnakeMoved(gridPosition);
         }
     }
 
@@ -88,6 +117,12 @@ public class Snake : MonoBehaviour {
     
     public Vector2Int GetGridPosition() {
         return gridPosition;
+    }
+    public List<Vector2Int> GetFullSnakeGridPositionList()
+    {
+        List<Vector2Int> gridPositionList = new List<Vector2Int>() { gridPosition };
+        gridPositionList.AddRange(snakeMovePositionList);
+            return gridPositionList;
     }
 
 }

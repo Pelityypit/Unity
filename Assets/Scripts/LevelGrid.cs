@@ -27,9 +27,10 @@ public class LevelGrid {
 
     // funktio jolla luodaan ruokaa pelikentälle
     private void SpawnFood() {
-        do {
+        do
+        {
             foodGridPosition = new Vector2Int(Random.Range(0, width), Random.Range(0, height));
-        } while (snake.GetGridPosition() == foodGridPosition);
+        } while (snake.GetFullSnakeGridPositionList().IndexOf(foodGridPosition) != -1);
 
         // satunnaiset sijainnit x ja y akseleilla pelikentällä
         foodGridPosition = new Vector2Int(Random.Range(0, width), Random.Range(0, height));
@@ -46,12 +47,17 @@ public class LevelGrid {
 
     // verrataan käärmeen ja hedelmän sijainteja
     // jos sijainnit samat, tuhotaan foodgameobject ja spawnataan uusi
-    public void SnakeMoved(Vector2Int snakeGridPosition) {
+    public bool TrySnakeEatFood(Vector2Int snakeGridPosition) {
         if (snakeGridPosition == foodGridPosition) {
             Object.Destroy(foodGameObject);
             SpawnFood();
+            return true;
             // CMDebug.TextPopupMouse("Snake ate food");
 
+        } else
+        {
+            return false;
         }
+
     }
 }
