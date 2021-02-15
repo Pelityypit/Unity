@@ -16,14 +16,14 @@ public class Snake : MonoBehaviour
      float rightConstraint = Screen.width;
      float bottomConstraint = Screen.height;
      float topConstraint = Screen.height;
-     float buffer = 1.0f;
+     float buffer = 0.5f;
      Camera cam;
      float distanceZ;
 
     
     void Start () {
         // Move the Snake every 300ms
-        InvokeRepeating("Move", 0.3f, 0.3f);    
+        InvokeRepeating("Move", 0.1f, 0.1f);    
          // this will find a world-space point that is relative to the screen
         cam = Camera.main;
         distanceZ = Mathf.Abs(cam.transform.position.z + transform.position.z);
