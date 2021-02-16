@@ -11,8 +11,32 @@ public class Snake : MonoBehaviour {
     private float gridMoveTimerMax; // määrittelee ajan liikkeiden välillä, eli käärmeen liikkumisnopeuden
     private LevelGrid levelGrid;
 
+<<<<<<< HEAD
     public void Setup(LevelGrid levelGrid) {
         this.levelGrid = levelGrid;
+=======
+    // snake disappears offscreen and reappears on the other side
+    // scales to screen
+     float leftConstraint = Screen.width;
+     float rightConstraint = Screen.width;
+     float bottomConstraint = Screen.height;
+     float topConstraint = Screen.height;
+     float buffer = 0.5f;
+     Camera cam;
+     float distanceZ;
+
+    
+    void Start () {
+        // Move the Snake every 300ms
+        InvokeRepeating("Move", 0.1f, 0.1f);    
+         // this will find a world-space point that is relative to the screen
+        cam = Camera.main;
+        distanceZ = Mathf.Abs(cam.transform.position.z + transform.position.z);
+        leftConstraint = cam.ScreenToWorldPoint(new Vector3(0.0f, 0.0f, distanceZ)).x;
+        rightConstraint = cam.ScreenToWorldPoint(new Vector3(Screen.width, 0.0f, distanceZ)).x;
+        bottomConstraint = cam.ScreenToWorldPoint(new Vector3(0.0f, 0.0f, distanceZ)).y;
+        topConstraint = cam.ScreenToWorldPoint(new Vector3(0.0f, Screen.height, distanceZ)).y;
+>>>>>>> Janita
     }
     
     private void Awake() {
@@ -79,6 +103,7 @@ public class Snake : MonoBehaviour {
         }
     }
 
+<<<<<<< HEAD
     // määritetään pään kulma kääntyessä
     private float GetAngleFromVector(Vector2Int dir) {
         float n = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
@@ -88,6 +113,14 @@ public class Snake : MonoBehaviour {
     
     public Vector2Int GetGridPosition() {
         return gridPosition;
+=======
+   
+    void Move() {
+      
+        // Move head into new directionn
+        transform.Translate(dir);
+ 
+>>>>>>> Janita
     }
 
 }
