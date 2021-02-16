@@ -7,8 +7,8 @@ public class SceneLoader : MonoBehaviour
 {
    public void LoadGame() 
    {
-       // Loads to next scene
-       //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+       // Scene changes from MainMenu to GameScene
+       
         SceneManager.LoadScene("GameScene");
        
    }
