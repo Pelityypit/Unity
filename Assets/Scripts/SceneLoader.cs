@@ -9,7 +9,7 @@ public class SceneLoader : MonoBehaviour
    {
        // Scene changes from MainMenu to GameScene
        
-        SceneManager.LoadScene("GameScene");
+        SceneManager.LoadScene("LOAD");
        
    }
 

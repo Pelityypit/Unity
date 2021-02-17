@@ -21,7 +21,7 @@ public class Snake : MonoBehaviour
      float distanceZ;
 
     
-    void Start () {
+     void Start () {
         // Move the Snake every 300ms
         InvokeRepeating("Move", 0.1f, 0.1f);    
          // this will find a world-space point that is relative to the screen
