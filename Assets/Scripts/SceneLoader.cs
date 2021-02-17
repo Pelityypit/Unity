@@ -9,7 +9,10 @@ public class SceneLoader : MonoBehaviour
    {
        // Scene changes from MainMenu to GameScene
        
-        SceneManager.LoadScene("LOAD");
+      SceneManager.LoadScene("LOAD");
+    // int buildIndex = 1;
+    //Load the scene with a build index
+   // SceneManager.LoadScene(buildIndex);
        
    }
 

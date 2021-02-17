@@ -27,9 +27,9 @@ public class Countdown : MonoBehaviour
 
         countdownDisplay.text = "GO!";
 
-        SceneManager.LoadScene("GameScene");
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
+         SceneManager.LoadScene("GameScene");
 
         countdownDisplay.gameObject.SetActive(false);
     }
