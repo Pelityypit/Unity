@@ -7,12 +7,9 @@ public class SceneLoader : MonoBehaviour
 {
    public void LoadGame() 
    {
-       // Scene changes from MainMenu to GameScene
-       
-      SceneManager.LoadScene("LOAD");
-    // int buildIndex = 1;
-    //Load the scene with a build index
-   // SceneManager.LoadScene(buildIndex);
+       // Kun painaa play vaihtuu ruutu päävalikosta lähtölaskenta ruudulle
+        SceneManager.LoadScene("LOAD");
+   
        
    }
 
@@ -20,6 +17,8 @@ public class SceneLoader : MonoBehaviour
 
    public void QuitGame()
    {
+       // Peliä ei voi lopettaa ennen kuin peli julkaistaan
+       // Joten toistaiseksi kun painaa "EXIT" consoliin ilmestyy teksti "Quit!"
        Application.Quit();
        Debug.Log("Quit!");
    }

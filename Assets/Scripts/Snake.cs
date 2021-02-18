@@ -5,13 +5,13 @@ using System.Linq;
 
 public class Snake : MonoBehaviour
 {
-    // Current Movement Direction
-    // (by default it moves to the right)
+    // Nykyinen liikkeen suunta
+    // Oletuksena se siirtyy oikealle
     Vector2 dir = Vector2.right;
 
 
-    // snake disappears offscreen and reappears on the other side
-    // scales to screen
+    // Käärme katoaa ruudulta ja ilmestyy taas toiselle puolelle
+    // Skalautuu ruudulle
      float leftConstraint = Screen.width;
      float rightConstraint = Screen.width;
      float bottomConstraint = Screen.height;
@@ -22,9 +22,9 @@ public class Snake : MonoBehaviour
 
     
      void Start () {
-        // Move the Snake every 300ms
-        InvokeRepeating("Move", 0.1f, 0.1f);    
-         // this will find a world-space point that is relative to the screen
+        // Käärme liikkuu kolmen sekunnin välein
+        InvokeRepeating("Move", 0.3f, 0.3f);    
+         // Tämä löytää maailmatilan, joka on suhteessa näyttöön
         cam = Camera.main;
         distanceZ = Mathf.Abs(cam.transform.position.z + transform.position.z);
         leftConstraint = cam.ScreenToWorldPoint(new Vector3(0.0f, 0.0f, distanceZ)).x;
@@ -35,29 +35,27 @@ public class Snake : MonoBehaviour
    
     
     void Update () {
-    // Move in a new Direction?
-    // if (!isDied) is added later, snake only moves if it's alive
-    // Now the whole snake rotates when it's moved up, down or to the sides
-    // As defined above the snake by default moves to the right
-    // What is Quaternion.Euler???
-    //  = Quaternions are used to represent rotations
-    /* = Euler angles can represent a three dimensional rotation by performing
-        three separate rotations around individual axes. */
+    // Nyt koko käärme pyörii, kun sitä siirretään ylös, alas tai sivuille
+    // Kuten edellä on määritelty, käärme siirtyy oletuksena oikealle
+    // Mikä ihmeen Quaternion.Euler???
+    //  = Quaternions käytetään kuvaamaan kiertoja
+    /* = Euler angles voi edustaa kolmiulotteista kiertoa suorittamalla
+        kolme erillistä kiertoa yksittäisten akselien ympäri. */
     if (Input.GetKey(KeyCode.RightArrow))
         {
             transform.rotation = Quaternion.Euler(Vector3.zero);
         }
-        // if pressed down rotate -90
+        // Jos nuolta painaa alas kääntyy käärme -90 astetta
         else if (Input.GetKey(KeyCode.DownArrow))
         {
             transform.rotation = Quaternion.Euler(Vector3.forward * -90);
         }
-        // if pressed left rotate 180
+        // Jos nuolta painaa vasemalle kääntyy käärme 180 astetta
         else if (Input.GetKey(KeyCode.LeftArrow))
         {
             transform.rotation = Quaternion.Euler(Vector3.forward * 180);
         }
-        // if pressed up rotate 90
+        // Jos nuolta painaa ylös kääntyy käärme 90 astetta
         else if (Input.GetKey(KeyCode.UpArrow))
         {
             transform.rotation = Quaternion.Euler(Vector3.forward * 90);
@@ -67,14 +65,14 @@ public class Snake : MonoBehaviour
    
     void Move() {
       
-        // Move head into new directionn
+        // Siirrä pää uuteen suuntaan
         transform.Translate(dir);
  
     }
 
     void FixedUpdate() {
-        // snake is past world-space view
-        // moves snake to the opposite side
+        // Käärme on ohi maailmatilan
+        // Siirrä käärme vastakkaiselle puolelle
          if (transform.position.x - buffer  < leftConstraint) {
              transform.position = new Vector3(rightConstraint - buffer, transform.position.y, transform.position.z);
          }
