@@ -13,7 +13,7 @@ public class SceneLoader : MonoBehaviour
        
    }
 
-   public void LoadHowToPlay() 
+   public void HowToPlay() 
    {
        // Kun painaa How to play-nappia, ruutu päävalikosta siirtyy How to play?-ruudulle
        SceneManager.LoadScene("HowToPlay");
