@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using CodeMonkey.Utils;
+using CodeMonkey;
 
 public class GameAssets : MonoBehaviour {
     // instancea käyttämällä pääsemme käsiksi tämän skriptin kenttiin muualla
@@ -13,5 +15,6 @@ public class GameAssets : MonoBehaviour {
     }
     
     public Sprite snakeHeadSprite;
+    public Sprite snakeBodySprite;
     public Sprite foodSprite;
 }
