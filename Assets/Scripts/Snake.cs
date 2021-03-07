@@ -129,7 +129,8 @@ public class Snake : MonoBehaviour {
     // lisää kehoon lisää palasia tai pitäisi ainakin :/
     private void UpdateSnakeBodyPart() {
           for (int i = 0; i <  snakeBodyPartList.Count; i++) {
-            snakeBodyPartList[i].setGridPosition(snakeMovePositionList[i]);
+           snakeBodyPartList[i].setGridPosition(snakeMovePositionList[i]);
+         
           }
     }
 
@@ -163,7 +164,7 @@ public class Snake : MonoBehaviour {
             GameObject snakeBodyGameObject = new GameObject("SnakeBody", typeof(SpriteRenderer));
             snakeBodyGameObject.GetComponent<SpriteRenderer>().sprite = GameAssets.instance.snakeBodySprite;
             // kehon osien lisäys tapahtuu käärmeen kehon häntäpäädyssä
-            snakeBodyGameObject.GetComponent<SpriteRenderer>().sortingOrder = -bodyIndex;
+            snakeBodyGameObject.GetComponent<SpriteRenderer>().sortingOrder = +bodyIndex;
             transform = snakeBodyGameObject.transform;
         }
 
