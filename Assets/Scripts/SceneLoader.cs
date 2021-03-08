@@ -20,12 +20,22 @@ public class SceneLoader : MonoBehaviour
 
    }
 
+      public void Score() 
+   {
+       // Kun painaa How to score-nappia, ruutu päävalikosta siirtyy Scoreboard-ruudulle
+       SceneManager.LoadScene("Scoreboard");
+
+   }
+
    public void BackToMainMenu()
    {
        SceneManager.LoadScene("MainMenu");
    }
 
-   
+     public void BackToMainMenuFromScoreboard()
+   {
+       SceneManager.LoadScene("MainMenu");
+   }
 
    public void QuitGame()
    {

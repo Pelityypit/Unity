@@ -9,7 +9,14 @@ public class GameHandler : MonoBehaviour {
     [SerializeField] private Snake snake;
     
     private LevelGrid levelGrid;
+
+  /*   private static int score;
     
+    private void Awake(){
+        PlayerPrefs.setInt("Highscore", 100);
+        PlayerPrefs.save();
+        Debug.Log(PlayerPrefs.getInt("Highscore"));
+    } */
 
     // Start is called before the first frame update
     private void Start() {
