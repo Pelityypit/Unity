@@ -20,6 +20,11 @@ public class SceneLoader : MonoBehaviour
 
    }
 
+   public void BackToMainMenu()
+   {
+       SceneManager.LoadScene("MainMenu");
+   }
+
    
 
    public void QuitGame()
