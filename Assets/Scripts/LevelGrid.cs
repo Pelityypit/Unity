@@ -51,6 +51,7 @@ public class LevelGrid {
         if (snakeGridPosition == foodGridPosition) {
             Object.Destroy(foodGameObject);
             SpawnFood();
+            GameHandler.AddScore(); // Kun käärme syö saa pisteitä
             // CMDebug.TextPopupMouse("Snake ate food");
             return true; // tosi jos käärme on syönyt
         } else {
@@ -61,7 +62,7 @@ public class LevelGrid {
     // ÄLÄ POISTA
     // Käärme liikkuu ruudun toiselle puolelle
     // EI VALMIS
-  /*   public Vector2Int ValidateGridPosition(Vector2Int gridPosition) {
+ /*     public Vector2Int ValidateGridPosition(Vector2Int gridPosition) {
         if (gridPosition.x < 0) {
             gridPosition.x = width - 1;
         }
@@ -76,5 +77,5 @@ public class LevelGrid {
         }
         return gridPosition;
 
-    } */
+    }  */
 }

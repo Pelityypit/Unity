@@ -22,7 +22,7 @@ public class SceneLoader : MonoBehaviour
 
       public void Score() 
    {
-       // Kun painaa How to score-nappia, ruutu päävalikosta siirtyy Scoreboard-ruudulle
+       // Kun painaa score-nappia, ruutu päävalikosta siirtyy Scoreboard-ruudulle
        SceneManager.LoadScene("Scoreboard");
 
    }

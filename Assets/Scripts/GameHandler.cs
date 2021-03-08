@@ -10,13 +10,16 @@ public class GameHandler : MonoBehaviour {
     
     private LevelGrid levelGrid;
 
-  /*   private static int score;
+    private GameHandler instance;
+
+     private static int score;
     
     private void Awake(){
-        PlayerPrefs.setInt("Highscore", 100);
+        instance = this;
+     /*    PlayerPrefs.setInt("Highscore", 100);
         PlayerPrefs.save();
-        Debug.Log(PlayerPrefs.getInt("Highscore"));
-    } */
+        Debug.Log(PlayerPrefs.getInt("Highscore")); */
+    } 
 
     // Start is called before the first frame update
     private void Start() {
@@ -28,6 +31,12 @@ public class GameHandler : MonoBehaviour {
         levelGrid.Setup(snake);
     }
 
-  
+  public static int GetScore() {
+      return score;
+  }
+
+  public static void AddScore() {
+      score += 10;
+  }
 }
 

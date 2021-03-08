@@ -116,7 +116,7 @@ public class Snake : MonoBehaviour {
             // ÄLÄ POISTA
             // Käärme liikkuu ruudun toiselle puolelle
             // EI VALMIS
-           /*  gridPosition = levelGrid.ValidateGridPosition(gridPosition); */
+            /* gridPosition = levelGrid.ValidateGridPosition(gridPosition);  */
             
         }
     }
