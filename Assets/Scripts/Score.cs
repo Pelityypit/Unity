@@ -5,20 +5,21 @@ using CodeMonkey.Utils;
 using System.Linq;
 using CodeMonkey;
 
+
 public static class Score
 {
- /*    public static int GetHighscore() {
+     public static int GetHighscore() {
         return PlayerPrefs.GetInt("Highscore", 0);
     }
 
     public static bool TrySetNewHighscore(int score) {
         int highscore = GetHighscore();
-        if (score > highscore) {
+        if (score > highscore) { // jos uusi tulos on parempi kuin edellinen se vaihtuu nykyiseen
             PlayerPrefs.SetInt("Highscore", score);
             PlayerPrefs.Save();
             return true;
         }else {
             return false;
         }
-    } */
+    } 
 }

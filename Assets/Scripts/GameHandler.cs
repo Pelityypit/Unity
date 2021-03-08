@@ -16,9 +16,9 @@ public class GameHandler : MonoBehaviour {
     
     private void Awake(){
         instance = this;
-     /*    PlayerPrefs.setInt("Highscore", 100);
-        PlayerPrefs.save();
-        Debug.Log(PlayerPrefs.getInt("Highscore")); */
+        PlayerPrefs.SetInt("Highscore", 100); // 100 on alustettu highscore
+        PlayerPrefs.Save();
+     /*    Debug.Log(PlayerPrefs.GetInt("Highscore"));  */
     } 
 
     // Start is called before the first frame update
