@@ -81,6 +81,7 @@ public class Snake : MonoBehaviour {
 
             // käärmee liikkuu
             gridPosition += gridMoveDirection;
+            
 
 
             bool snakeAteFood = levelGrid.TrySnakeEatFood(gridPosition);
@@ -126,7 +127,7 @@ public class Snake : MonoBehaviour {
       snakeBodyPartList.Add(new SnakeBodyPart(snakeBodyPartList.Count));
     }
 
-    // lisää kehoon lisää palasia tai pitäisi ainakin :/
+    // lisää kehoon lisää palasia 
     private void UpdateSnakeBodyPart() {
           for (int i = 0; i <  snakeBodyPartList.Count; i++) {
            snakeBodyPartList[i].setGridPosition(snakeMovePositionList[i]);

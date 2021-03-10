@@ -62,7 +62,7 @@ public class LevelGrid {
     // ÄLÄ POISTA
     // Käärme liikkuu ruudun toiselle puolelle
     // EI VALMIS
- /*     public Vector2Int ValidateGridPosition(Vector2Int gridPosition) {
+     /*  public Vector2Int ValidateGridPosition(Vector2Int gridPosition) {
         if (gridPosition.x < 0) {
             gridPosition.x = width - 1;
         }
@@ -77,5 +77,5 @@ public class LevelGrid {
         }
         return gridPosition;
 
-    }  */
+    }   */
 }
