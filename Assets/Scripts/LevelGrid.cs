@@ -28,12 +28,10 @@ public class LevelGrid {
     // funktio jolla luodaan ruokaa pelikentälle
     private void SpawnFood() {
         do {
+            // satunnaiset sijainnit x ja y akseleilla pelikentällä
             foodGridPosition = new Vector2Int(Random.Range(0, width), Random.Range(0, height));
             // Käärmeen pään ja kehon päälle ei ilmesty ruokaa
         } while (snake.GetFullSnakeGridPositionList().IndexOf(foodGridPosition) != -1); 
-
-        // satunnaiset sijainnit x ja y akseleilla pelikentällä
-        foodGridPosition = new Vector2Int(Random.Range(0, width), Random.Range(0, height));
 
         // luodaan uusi peliobjekti "food", annetaan typeofilla sille spriterenderer komponentti
         foodGameObject = new GameObject("Food", typeof(SpriteRenderer));
