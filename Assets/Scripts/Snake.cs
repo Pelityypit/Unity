@@ -181,7 +181,7 @@ public class Snake : MonoBehaviour {
       snakeBodyPartList.Add(new SnakeBodyPart(snakeBodyPartList.Count));
     }
 
-    // lisää kehoon lisää palasia tai pitäisi ainakin :/
+    // lisää kehoon lisää palasia
     private void UpdateSnakeBodyParts() {
           for (int i = 0; i <  snakeBodyPartList.Count; i++) {
            snakeBodyPartList[i].SetSnakeMovePosition(snakeMovePositionList[i]);

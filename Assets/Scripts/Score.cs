@@ -7,7 +7,7 @@ using CodeMonkey;
 
 public static class Score
 {
- /*    public static int GetHighscore() {
+     public static int GetHighscore() {
         return PlayerPrefs.GetInt("Highscore", 0);
     }
 
@@ -20,5 +20,5 @@ public static class Score
         }else {
             return false;
         }
-    } */
+    } 
 }
