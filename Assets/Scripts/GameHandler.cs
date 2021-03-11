@@ -11,14 +11,11 @@ public class GameHandler : MonoBehaviour {
     private LevelGrid levelGrid;
     private GameHandler instance;
 
-
-   
-    
     private void Awake(){
         Score.InitializeStatic();
-        PlayerPrefs.SetInt("Highscore", 100);
-        PlayerPrefs.Save();
-        Debug.Log(PlayerPrefs.GetInt("Highscore"));
+        PlayerPrefs.SetInt("Highscore", 0); // SetInt ottaa parametreiksi avaimen ja arvon, joilla voidaan tallentaa tietoa
+        PlayerPrefs.Save(); // tiedon tallennus
+        Debug.Log(PlayerPrefs.GetInt("Highscore")); // varmistetaan että SetInt toimii
     } 
 
     // Start is called before the first frame update
@@ -31,10 +28,9 @@ public class GameHandler : MonoBehaviour {
         levelGrid.Setup(snake);
     }
 
-   
-
     public static void SnakeDied() {
-      Score.TrySetNewHighscore();
+        // kun käärmee kuolee päivitetään mahdollinen uusi piste-ennätys
+        Score.TrySetNewHighscore();
     }
 }
 

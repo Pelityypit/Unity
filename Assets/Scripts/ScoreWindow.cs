@@ -13,6 +13,7 @@ public class ScoreWindow : MonoBehaviour
     private void Awake() {
 
         // Text-osat GameScene canvas
+        // näyttää peliruudulla pistemäärän
         scoreText = transform.Find("ScoreText").GetComponent<Text>(); 
 
         Score.OnHighscoreChanged += Score_OnHighscoreChanged;
@@ -20,17 +21,17 @@ public class ScoreWindow : MonoBehaviour
     }
 
     private void Score_OnHighscoreChanged(object sender, System.EventArgs e) {
-       // throw new System.NotImplementedException();
+       // kun piste-ennätys muuttuu palautetaan uusi piste-ennätys
        UpdateHighscore();
     }
 
-    
-
     private void Update() {
-        scoreText.text = Score.GetScore().ToString();
+        // päivittää pistemäärän lisääntymisen peliruudulle
+        scoreText.text = Score.GetScore().ToString(); 
     } 
     private void UpdateHighscore() {
-         int highscore = Score.GetHighscore();
+        // päivitetään peliruudulla näkyvä piste-ennätys
+        int highscore = Score.GetHighscore();
         transform.Find("HighscoreText").GetComponent<Text>().text = "HIGHSCORE\n" + highscore.ToString(); 
     }
 

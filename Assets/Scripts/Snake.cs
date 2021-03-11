@@ -154,7 +154,7 @@ public class Snake : MonoBehaviour {
                     //luodaan teksti Dead! ja käärmeen state muuttuu kuolleeksi
                     CMDebug.TextPopup("Dead!", transform.position);
                     state = State.Dead;
-                    GameHandler.SnakeDied();
+                    GameHandler.SnakeDied(); // kun käärme kuolee päivitetään uusi mahdollinen piste-ennätys
                 }
             }
            
