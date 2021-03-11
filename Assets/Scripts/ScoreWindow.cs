@@ -14,13 +14,24 @@ public class ScoreWindow : MonoBehaviour
 
         // Text-osat GameScene canvas
         scoreText = transform.Find("ScoreText").GetComponent<Text>(); 
- 
-        int highscore = Score.GetHighscore();
-        transform.Find("HighscoreText").GetComponent<Text>().text = "HIGHSCORE\n" + highscore.ToString(); 
+
+        Score.OnHighscoreChanged += Score_OnHighscoreChanged;
+        UpdateHighscore();
     }
 
+    private void Score_OnHighscoreChanged(object sender, System.EventArgs e) {
+       // throw new System.NotImplementedException();
+       UpdateHighscore();
+    }
+
+    
 
     private void Update() {
         scoreText.text = Score.GetScore().ToString();
     } 
+    private void UpdateHighscore() {
+         int highscore = Score.GetHighscore();
+        transform.Find("HighscoreText").GetComponent<Text>().text = "HIGHSCORE\n" + highscore.ToString(); 
+    }
+
 }

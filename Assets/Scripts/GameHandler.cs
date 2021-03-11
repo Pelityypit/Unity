@@ -16,7 +16,7 @@ public class GameHandler : MonoBehaviour {
     
     private void Awake(){
         Score.InitializeStatic();
-        PlayerPrefs.SetInt("Highscore", 0);
+        PlayerPrefs.SetInt("Highscore", 100);
         PlayerPrefs.Save();
         Debug.Log(PlayerPrefs.GetInt("Highscore"));
     } 
