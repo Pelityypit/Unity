@@ -49,7 +49,7 @@ public class LevelGrid {
         if (snakeGridPosition == foodGridPosition) {
             Object.Destroy(foodGameObject);
             SpawnFood();
-            GameHandler.AddScore(); // Kun käärme syö saa pisteitä
+            Score.AddScore(); // Kun käärme syö saa pisteitä
             // CMDebug.TextPopupMouse("Snake ate food");
             return true; // tosi jos käärme on syönyt
         } else {

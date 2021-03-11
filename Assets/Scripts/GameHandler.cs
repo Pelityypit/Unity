@@ -12,10 +12,11 @@ public class GameHandler : MonoBehaviour {
     private GameHandler instance;
 
 
-    private static int score;
+   
     
     private void Awake(){
-        PlayerPrefs.SetInt("Highscore", 100);
+        Score.InitializeStatic();
+        PlayerPrefs.SetInt("Highscore", 0);
         PlayerPrefs.Save();
         Debug.Log(PlayerPrefs.GetInt("Highscore"));
     } 
@@ -30,12 +31,10 @@ public class GameHandler : MonoBehaviour {
         levelGrid.Setup(snake);
     }
 
-    public static int GetScore() {
-      return score;
-    }
+   
 
-     public static void AddScore() {
-      score += 10;
+    public static void SnakeDied() {
+      Score.TrySetNewHighscore();
     }
 }
 

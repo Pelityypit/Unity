@@ -21,6 +21,6 @@ public class ScoreWindow : MonoBehaviour
 
 
     private void Update() {
-        scoreText.text = GameHandler.GetScore().ToString();
+        scoreText.text = Score.GetScore().ToString();
     } 
 }
