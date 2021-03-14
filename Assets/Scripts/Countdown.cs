@@ -32,7 +32,7 @@ public class Countdown : MonoBehaviour
         countdownDisplay.text = "GO!";
 
         // "GO!" näkyy ruudulla 2 sekuntia
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
         // "GO!" jälkeen vaihtuu ruutu peliruutuun
          SceneManager.LoadScene("GameScene");
 

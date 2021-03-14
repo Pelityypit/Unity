@@ -5,15 +5,17 @@ using CodeMonkey.Utils;
 using System.Linq;
 using CodeMonkey;
 
-public class Snake : MonoBehaviour {
+public class Snake : MonoBehaviour
+{
 
 
-    private enum Direction { 
+    private enum Direction
+    {
         Left,
         Right,
         Up,
         Down
-}
+    }
     //käärmeen state = elävä tai kuollut
     private enum State
     {
@@ -31,16 +33,18 @@ public class Snake : MonoBehaviour {
     private List<SnakeMovePosition> snakeMovePositionList; // lista johon tallennetaan käärmeen kasvu ja sen osat
     private List<SnakeBodyPart> snakeBodyPartList; // lista johon tallennetaan käärmeen kasvu muutokset
 
-    public void Setup(LevelGrid levelGrid) {
+    public void Setup(LevelGrid levelGrid)
+    {
         this.levelGrid = levelGrid;
     }
-    
-    private void Awake() {
+
+    private void Awake()
+    {
         gridPosition = new Vector2Int(10, 10); // asetetaan sijainti: x=10, y=10
         gridMoveTimerMax = 0.2f; // liikkumisnopeus: mitä pienempi arvo, sitä useampi liike per frame
         gridMoveTimer = gridMoveTimerMax;
         gridMoveDirection = Direction.Right;  // alustetaan käärme liikkumaan oikealle
-         
+
         snakeMovePositionList = new List<SnakeMovePosition>();
         snakeBodySize = 0; // alustetaan käärmeen kooksi 0
 
@@ -50,19 +54,20 @@ public class Snake : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update() {
-    switch (state)
+    void Update()
+    {
+        switch (state)
         {
-        case State.Alive:
-            HandleInput();
-            HandleGridMovement();
+            case State.Alive:
+                HandleInput();
+                HandleGridMovement();
                 break;
-        //Jos state muuttuu kuolleeksi: peli päättyy
-        case State.Dead:
+            //Jos state muuttuu kuolleeksi: peli päättyy
+            case State.Dead:
                 break;
 
         }
-        
+
 
     }
 
@@ -70,37 +75,49 @@ public class Snake : MonoBehaviour {
     // määritetään liikkumisnapit: wasd ja nuolinapit
     // määritetään liikkumissuunnat, asetetaan x ja y-askeleille arvot suunnan mukaisesti
     // ylöspäin liikkuessa x=0 ja y=+1 koska liikutaan vertikaalisesti mutta ei horisontaalisesti
-    private void HandleInput() {
-     
-        if (Input.GetKeyDown(KeyCode.UpArrow)) { 
-            if (gridMoveDirection != Direction.Down) { // jos emme liiku alaspäin, voimme liikkua ylöspäin
+    private void HandleInput()
+    {
+
+        if (Input.GetKeyDown(KeyCode.UpArrow) || (Input.GetKeyDown(KeyCode.W)))
+        {
+            if (gridMoveDirection != Direction.Down)
+            { // jos emme liiku alaspäin, voimme liikkua ylöspäin
                 gridMoveDirection = Direction.Up;
             }
         }
-        if (Input.GetKeyDown(KeyCode.DownArrow)) { 
-            if (gridMoveDirection != Direction.Up) {
+        if (Input.GetKeyDown(KeyCode.DownArrow) || (Input.GetKeyDown(KeyCode.S)))
+        {
+            if (gridMoveDirection != Direction.Up)
+            {
                 gridMoveDirection = Direction.Down;
             }
-        } 
-        if (Input.GetKeyDown(KeyCode.LeftArrow)) { 
-            if (gridMoveDirection != Direction.Right) {
+        }
+        if (Input.GetKeyDown(KeyCode.LeftArrow) || (Input.GetKeyDown(KeyCode.A)))
+        {
+            if (gridMoveDirection != Direction.Right)
+            {
                 gridMoveDirection = Direction.Left;
             }
         }
-        if (Input.GetKeyDown(KeyCode.RightArrow)) { 
-            if (gridMoveDirection != Direction.Left) {
+        if (Input.GetKeyDown(KeyCode.RightArrow) || (Input.GetKeyDown(KeyCode.D)))
+        {
+            if (gridMoveDirection != Direction.Left)
+            {
                 gridMoveDirection = Direction.Right;
             }
         }
     }
 
     // -- KENTÄN PÄIVITYS -- 
-    private void HandleGridMovement() {
+    private void HandleGridMovement()
+    {
         gridMoveTimer += Time.deltaTime;
-        if (gridMoveTimer >= gridMoveTimerMax) {
+        if (gridMoveTimer >= gridMoveTimerMax)
+        {
             gridMoveTimer -= gridMoveTimerMax;
 
-            
+
+
             SnakeMovePosition previousSnakeMovePosition = null;
             //jos on olemassa aikaisempi kehon sijainti niin tallennetaan se uuteen kehon osaan
             if (snakeMovePositionList.Count > 0)
@@ -108,7 +125,7 @@ public class Snake : MonoBehaviour {
                 //
                 previousSnakeMovePosition = snakeMovePositionList[0];
             }
-            
+
             SnakeMovePosition snakeMovePosition = new SnakeMovePosition(previousSnakeMovePosition, gridPosition, gridMoveDirection);
 
             // tallennetaan listaan käärmeen kehon sijainti
@@ -131,97 +148,109 @@ public class Snake : MonoBehaviour {
 
 
             bool snakeAteFood = levelGrid.TrySnakeEatFood(gridPosition);
-            if (snakeAteFood) {
-               // kun käärme syö, kasvata kehoa
-               snakeBodySize++;
-               CreateSnakeBodyPart(); // kun kasvu tapahtuu tee keho
+            if (snakeAteFood)
+            {
+                // kun käärme syö, kasvata kehoa
+                snakeBodySize++;
+                CreateSnakeBodyPart(); // kun kasvu tapahtuu tee keho
+                SoundManager.PlaySound(SoundManager.Sound.SnakeEatFruit); // Syömisen ääniefekti
             }
 
             // testataan onko lista liian iso perustuen käärmeen kokooon
-            if (snakeMovePositionList.Count >= snakeBodySize + 1) { // jos listassa on yksi ylimääräinen osa
-                snakeMovePositionList.RemoveAt(snakeMovePositionList.Count -1); // poistetaan listasta ylimääräinen osa
+            if (snakeMovePositionList.Count >= snakeBodySize + 1)
+            { // jos listassa on yksi ylimääräinen osa
+                snakeMovePositionList.RemoveAt(snakeMovePositionList.Count - 1); // poistetaan listasta ylimääräinen osa
             }
-            
+
             UpdateSnakeBodyParts();
             //käydään läpi kaikki kehon osat
             foreach (SnakeBodyPart snakeBodyPart in snakeBodyPartList)
             {
                 Vector2Int snakeBodyPartGridPosition = snakeBodyPart.GetGridPosition();
 
-                
+
                 if (gridPosition == snakeBodyPartGridPosition) //jos käärmeen pään sijainti on sama kuin jollain sen kehon osalla
-                {   
+                {
                     //luodaan teksti Dead! ja käärmeen state muuttuu kuolleeksi
                     CMDebug.TextPopup("Dead!", transform.position);
+                    SoundManager.PlaySound(SoundManager.Sound.SnakeDeath); //Kuoleman ääni
                     state = State.Dead;
                     GameHandler.SnakeDied(); // kun käärme kuolee päivitetään uusi mahdollinen piste-ennätys
                 }
             }
-           
-          
+
+
 
             // päivitetään käärmeen sijainti gridPositionin x ja y arvoilla
             transform.position = new Vector3(gridPosition.x, gridPosition.y);
             // haetaan pään kääntyminen Vector2Intin kulmasta (z-akseli), joka saa parametrina pään suunnan
             // euler angle on oikea termi z-akselille
             // kulmasta pitää vähentää 90 astetta, koska unityssä 0-arvo osoittaa oikealle
-            transform.eulerAngles = new Vector3(0, 0, GetAngleFromVector(gridMoveDirectionVector) -90);
+            transform.eulerAngles = new Vector3(0, 0, GetAngleFromVector(gridMoveDirectionVector) - 90);
 
-            
-         
+
+
             // ÄLÄ POISTA
             // Käärme liikkuu ruudun toiselle puolelle
             // EI VALMIS
-           /*  gridPosition = levelGrid.ValidateGridPosition(gridPosition); */
-            
+            /*  gridPosition = levelGrid.ValidateGridPosition(gridPosition); */
+
         }
     }
-    
+
     // luo käärmeen kehon käärmeen syötyä hedelmän
-    private void CreateSnakeBodyPart() {
-      snakeBodyPartList.Add(new SnakeBodyPart(snakeBodyPartList.Count));
+    private void CreateSnakeBodyPart()
+    {
+        snakeBodyPartList.Add(new SnakeBodyPart(snakeBodyPartList.Count));
     }
 
     // lisää kehoon lisää palasia
-    private void UpdateSnakeBodyParts() {
-          for (int i = 0; i <  snakeBodyPartList.Count; i++) {
-           snakeBodyPartList[i].SetSnakeMovePosition(snakeMovePositionList[i]);
-         
-          }
+    private void UpdateSnakeBodyParts()
+    {
+        for (int i = 0; i < snakeBodyPartList.Count; i++)
+        {
+            snakeBodyPartList[i].SetSnakeMovePosition(snakeMovePositionList[i]);
+
+        }
     }
 
     // määritetään pään kulma kääntyessä
-    private float GetAngleFromVector(Vector2Int dir) {
+    private float GetAngleFromVector(Vector2Int dir)
+    {
         float n = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         if (n < 0) n += 360;
         return n;
     }
-    
-    public Vector2Int GetGridPosition() {
+
+    public Vector2Int GetGridPosition()
+    {
         return gridPosition;
     }
 
     // Palauttaa listan käärmeen pään ja kehon sijainneista
-    public List<Vector2Int> GetFullSnakeGridPositionList() {
+    public List<Vector2Int> GetFullSnakeGridPositionList()
+    {
         List<Vector2Int> gridPositionList = new List<Vector2Int>() { gridPosition };
         foreach (SnakeMovePosition snakeMovePosition in snakeMovePositionList)
         {
             gridPositionList.Add(snakeMovePosition.GetGridPosition());
         }
-        
+
         return gridPositionList;
     }
 
- 
-    private class SnakeBodyPart {
 
-        
+    private class SnakeBodyPart
+    {
+
+
         private SnakeMovePosition snakeMovePosition;
         private Transform transform;
 
         // luodaan uusi gameObject "SnakeBody" 
         // lisätään uusi snakebody sprite GameScene/GameHandler/GameAssets
-        public SnakeBodyPart(int bodyIndex) {
+        public SnakeBodyPart(int bodyIndex)
+        {
             GameObject snakeBodyGameObject = new GameObject("SnakeBody", typeof(SpriteRenderer));
             snakeBodyGameObject.GetComponent<SpriteRenderer>().sprite = GameAssets.instance.snakeBodySprite;
             // kehon osien lisäys tapahtuu käärmeen kehon häntäpäädyssä
@@ -231,18 +260,19 @@ public class Snake : MonoBehaviour {
 
 
         // kehon sijainnin määritys
-        public void SetSnakeMovePosition(SnakeMovePosition snakeMovePosition) {
+        public void SetSnakeMovePosition(SnakeMovePosition snakeMovePosition)
+        {
             this.snakeMovePosition = snakeMovePosition;
             transform.position = new Vector3(snakeMovePosition.GetGridPosition().x, snakeMovePosition.GetGridPosition().y);
 
 
             //kehon kulman määritys käännyttäessä
             float angle;
-            switch (snakeMovePosition.GetDirection( ))
+            switch (snakeMovePosition.GetDirection())
             {
-            default:
-            case Direction.Up: //kun kääntyy ylös
-                switch (snakeMovePosition.GetPrevioudDirection())
+                default:
+                case Direction.Up: //kun kääntyy ylös
+                    switch (snakeMovePosition.GetPrevioudDirection())
                     {
                         default:
                             angle = 0; break; //ylöspäin mentäessä käärmeen kulma on 0 astetta
@@ -256,52 +286,52 @@ public class Snake : MonoBehaviour {
                             break;
                     }
                     break;
-            case Direction.Down: //kunt kääntyy alas
+                case Direction.Down: //kun kääntyy alas
                     switch (snakeMovePosition.GetPrevioudDirection())
                     {
                         default:
                             angle = 180; break; //alaspäin mentäessä käärmeen kulma on 180 astetta
                         case Direction.Left: //liikkuessa vasemmalle
-                            angle =  180 - 25; 
+                            angle = 180 - 25;
                             transform.position += new Vector3(.2f, -.2f);
                             break;
                         case Direction.Right: //liikkuessa oikealle
-                            angle = 180 + 15; 
+                            angle = 180 + 15;
                             transform.position += new Vector3(-.2f, -.2f);
                             break;
                     }
                     break;
-            case Direction.Left: //kun kääntyy vasemmalle
+                case Direction.Left: //kun kääntyy vasemmalle
                     switch (snakeMovePosition.GetPrevioudDirection())
                     {
                         default:
                             angle = 90; break; //vasemmalle liikkuessa käärmeen kulma on 90 astetta
                         case Direction.Down: //liikkuessa alaspäin
-                            angle = 90 + 20; 
+                            angle = 90 + 20;
                             transform.position += new Vector3(-.2f, .2f);
                             break;
                         case Direction.Up: //liikkuessa ylöspäin
-                            angle = 90 - 25; 
+                            angle = 90 - 25;
                             transform.position += new Vector3(-.2f, -.2f);
                             break;
                     }
                     break;
-            case Direction.Right: //kun kääntyy oikealle
+                case Direction.Right: //kun kääntyy oikealle
                     switch (snakeMovePosition.GetPrevioudDirection())
                     {
                         default:
                             angle = -90; break; //oikealle liikkuessa käärmeen kulma on -90 astetta
                         case Direction.Down: //liikkuessa alaspäin
-                            angle = -115; 
+                            angle = -115;
                             transform.position += new Vector3(.2f, .2f);
                             break;
                         case Direction.Up: //liikkuessa ylöspäin
-                            angle = -75; 
+                            angle = -75;
                             transform.position += new Vector3(.2f, -.2f);
                             break;
                     }
                     break;
-            
+
             }
             transform.eulerAngles = new Vector3(0, 0, angle);
         }
@@ -313,16 +343,17 @@ public class Snake : MonoBehaviour {
 
     }
 
-        //Tallentaa käärmeen kehon osan liikeen suunnan sekä sijainnin ja jakaa sen eteenpäin
-        private class SnakeMovePosition {
-            //aikaisemman kehon osan sijainti
-            private SnakeMovePosition previousSnakeMovePosition;
+    //Tallentaa käärmeen kehon osan liikeen suunnan sekä sijainnin ja jakaa sen eteenpäin
+    private class SnakeMovePosition
+    {
+        //aikaisemman kehon osan sijainti
+        private SnakeMovePosition previousSnakeMovePosition;
 
-            private Vector2Int gridPosition;
-            private Direction direction;
-            
+        private Vector2Int gridPosition;
+        private Direction direction;
+
         //kehon osien liikesuuntien ja sijaintien konstruktori
-            public SnakeMovePosition(SnakeMovePosition previousSnakeMovePosition, Vector2Int gridPosition, Direction direction)
+        public SnakeMovePosition(SnakeMovePosition previousSnakeMovePosition, Vector2Int gridPosition, Direction direction)
         {
             this.previousSnakeMovePosition = previousSnakeMovePosition;
             this.gridPosition = gridPosition;
@@ -349,11 +380,11 @@ public class Snake : MonoBehaviour {
             {
                 return previousSnakeMovePosition.direction;
             }
-            
-        }
-        }
 
-    
+        }
+    }
+
+
 
 
 }
