@@ -57,23 +57,22 @@ public class LevelGrid {
         }
     }
 
-    // ÄLÄ POISTA
+    
     // Käärme liikkuu ruudun toiselle puolelle
-    // EI VALMIS
-  /*   public Vector2Int ValidateGridPosition(Vector2Int gridPosition) {
-        if (gridPosition.x < 0) {
-            gridPosition.x = width - 1;
+     public Vector2Int ValidateGridPosition(Vector2Int gridPosition) {
+        if (gridPosition.x < -10) {
+            gridPosition.x = width - 0;
         }
-          if (gridPosition.x > width - 1) {
-            gridPosition.x = 0;
+           if (gridPosition.x > width - 0) {
+            gridPosition.x = -10;
+        } 
+             if (gridPosition.y < - 0) {
+            gridPosition.y = height - 0;
         }
-            if (gridPosition.y < 0) {
-            gridPosition.y = height - 1;
-        }
-          if (gridPosition.y < height - 1) {
-            gridPosition.y = 0;
-        }
+           if (gridPosition.y > height - 0) {
+            gridPosition.y = -1;
+        }  
         return gridPosition;
 
-    } */
+    } 
 }

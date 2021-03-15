@@ -22,7 +22,7 @@ public class GameHandler : MonoBehaviour {
     private void Start() {
         Debug.Log("GameHandler.Start");
 
-        levelGrid = new LevelGrid(20, 20);
+        levelGrid = new LevelGrid(29, 21); // oli 20, 20 muutettu jotta borderi toimis
 
         snake.Setup(levelGrid);
         levelGrid.Setup(snake);

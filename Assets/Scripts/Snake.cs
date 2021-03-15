@@ -188,12 +188,8 @@ public class Snake : MonoBehaviour
             // kulmasta pitää vähentää 90 astetta, koska unityssä 0-arvo osoittaa oikealle
             transform.eulerAngles = new Vector3(0, 0, GetAngleFromVector(gridMoveDirectionVector) - 90);
 
-
-
-            // ÄLÄ POISTA
             // Käärme liikkuu ruudun toiselle puolelle
-            // EI VALMIS
-            /*  gridPosition = levelGrid.ValidateGridPosition(gridPosition); */
+            gridPosition = levelGrid.ValidateGridPosition(gridPosition); 
 
         }
     }
