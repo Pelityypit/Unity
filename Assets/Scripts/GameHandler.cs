@@ -13,7 +13,7 @@ public class GameHandler : MonoBehaviour {
 
     private void Awake(){
         Score.InitializeStatic();
-        PlayerPrefs.SetInt("Highscore", 0); // SetInt ottaa parametreiksi avaimen ja arvon, joilla voidaan tallentaa tietoa
+        PlayerPrefs.SetInt("Highscore", 100); // SetInt ottaa parametreiksi avaimen ja arvon, joilla voidaan tallentaa tietoa
         PlayerPrefs.Save(); // tiedon tallennus
         Debug.Log(PlayerPrefs.GetInt("Highscore")); // varmistetaan että SetInt toimii
     } 

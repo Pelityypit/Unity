@@ -30,10 +30,10 @@ public static class Score
     }
     public static bool TrySetNewHighscore() {
         // palauttaa uuden piste-ennätyksen
-        return TrySetNewHighscore(highscore);
+        return TrySetNewHighscore(score);
       }
 
-    public static bool TrySetNewHighscore(int highscore) {
+    public static bool TrySetNewHighscore(int score) {
         // testaa onko uusi pistemäärä suurempi kuin edellinen piste-ennätys
         // jos on palauttaa tosi, muutoin epätosi
         highscore = GetHighscore(); // nykyinen piste-ennätys
