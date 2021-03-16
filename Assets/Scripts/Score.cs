@@ -10,6 +10,7 @@ public static class Score
     public static event EventHandler OnHighscoreChanged; // pitää piste-ennätyksen tallennettuna käärmeen kuoleman jälkeen
 
     private static int score;
+    private static int highscore;
 
     public static void InitializeStatic() {
         OnHighscoreChanged = null; 
@@ -29,14 +30,15 @@ public static class Score
     }
     public static bool TrySetNewHighscore() {
         // palauttaa uuden piste-ennätyksen
-        return TrySetNewHighscore(score);
+        return TrySetNewHighscore(highscore);
       }
 
-    public static bool TrySetNewHighscore(int score) {
+    public static bool TrySetNewHighscore(int highscore) {
         // testaa onko uusi pistemäärä suurempi kuin edellinen piste-ennätys
         // jos on palauttaa tosi, muutoin epätosi
-        int highscore = GetHighscore(); // nykyinen piste-ennätys
+        highscore = GetHighscore(); // nykyinen piste-ennätys
         if (score > highscore) {
+            
             PlayerPrefs.SetInt("Highscore", score); // lisätään uusi pistemäärä jos se on suurempi kuin edellinen piste-ennätys
             PlayerPrefs.Save(); // uuden pistemäärän tallennus
             if(OnHighscoreChanged != null) OnHighscoreChanged(null, EventArgs.Empty);
