@@ -23,6 +23,7 @@ public class Snake : MonoBehaviour
         Dead
     }
 
+
     private State state;
     private Vector2Int gridPosition; // määrittelee käärmeen sijainnin
     private Direction gridMoveDirection; // määrittelee automaattisen liikkeen suunnan
@@ -172,7 +173,7 @@ public class Snake : MonoBehaviour
                 if (gridPosition == snakeBodyPartGridPosition) //jos käärmeen pään sijainti on sama kuin jollain sen kehon osalla
                 {
                     //luodaan teksti Dead! ja käärmeen state muuttuu kuolleeksi
-                    CMDebug.TextPopup("Dead!", transform.position);
+                    // CMDebug.TextPopup("Dead!", transform.position);
                     SoundManager.PlaySound(SoundManager.Sound.SnakeDeath); //Kuoleman ääni
                     state = State.Dead;
                     GameHandler.SnakeDied(); // kun käärme kuolee päivitetään uusi mahdollinen piste-ennätys

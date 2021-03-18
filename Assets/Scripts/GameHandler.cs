@@ -26,11 +26,15 @@ public class GameHandler : MonoBehaviour {
 
         snake.Setup(levelGrid);
         levelGrid.Setup(snake);
+
+        
     }
 
     public static void SnakeDied() {
         // kun käärmee kuolee päivitetään mahdollinen uusi piste-ennätys
         Score.TrySetNewHighscore();
+        GameOverWindow.ShowStatic();
     }
+
 }
 
