@@ -268,7 +268,7 @@ public class Snake : MonoBehaviour
             {
                 default:
                 case Direction.Up: //kun kääntyy ylös
-                    switch (snakeMovePosition.GetPrevioudDirection())
+                    switch (snakeMovePosition.GetPreviousDirection())
                     {
                         default:
                             angle = 0; break; //ylöspäin mentäessä käärmeen kulma on 0 astetta
@@ -283,7 +283,7 @@ public class Snake : MonoBehaviour
                     }
                     break;
                 case Direction.Down: //kun kääntyy alas
-                    switch (snakeMovePosition.GetPrevioudDirection())
+                    switch (snakeMovePosition.GetPreviousDirection())
                     {
                         default:
                             angle = 180; break; //alaspäin mentäessä käärmeen kulma on 180 astetta
@@ -298,7 +298,7 @@ public class Snake : MonoBehaviour
                     }
                     break;
                 case Direction.Left: //kun kääntyy vasemmalle
-                    switch (snakeMovePosition.GetPrevioudDirection())
+                    switch (snakeMovePosition.GetPreviousDirection())
                     {
                         default:
                             angle = 90; break; //vasemmalle liikkuessa käärmeen kulma on 90 astetta
@@ -313,7 +313,7 @@ public class Snake : MonoBehaviour
                     }
                     break;
                 case Direction.Right: //kun kääntyy oikealle
-                    switch (snakeMovePosition.GetPrevioudDirection())
+                    switch (snakeMovePosition.GetPreviousDirection())
                     {
                         default:
                             angle = -90; break; //oikealle liikkuessa käärmeen kulma on -90 astetta
@@ -365,7 +365,7 @@ public class Snake : MonoBehaviour
         {
             return direction;
         }
-        public Direction GetPrevioudDirection()
+        public Direction GetPreviousDirection()
         {
             //Jos ei ole aikaisempaa liikesuuntaa, palauttaa käärmeelle vakio liikesuunnan
             if (previousSnakeMovePosition == null)
