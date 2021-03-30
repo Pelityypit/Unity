@@ -81,30 +81,36 @@ public class Snake : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.UpArrow) || (Input.GetKeyDown(KeyCode.W)))
         {
-            if (gridMoveDirection != Direction.Down)
+            if (gridMoveDirection != Direction.Down && gridMoveDirection != Direction.Up)
             { // jos emme liiku alaspäin, voimme liikkua ylöspäin
+
                 gridMoveDirection = Direction.Up;
+                SoundManager.PlaySound(SoundManager.Sound.SnakeTurn);
+
             }
         }
         if (Input.GetKeyDown(KeyCode.DownArrow) || (Input.GetKeyDown(KeyCode.S)))
         {
-            if (gridMoveDirection != Direction.Up)
+            if (gridMoveDirection != Direction.Up && gridMoveDirection != Direction.Down)
             {
                 gridMoveDirection = Direction.Down;
+                SoundManager.PlaySound(SoundManager.Sound.SnakeTurn);
             }
         }
         if (Input.GetKeyDown(KeyCode.LeftArrow) || (Input.GetKeyDown(KeyCode.A)))
         {
-            if (gridMoveDirection != Direction.Right)
+            if (gridMoveDirection != Direction.Right && gridMoveDirection != Direction.Left)
             {
                 gridMoveDirection = Direction.Left;
+                SoundManager.PlaySound(SoundManager.Sound.SnakeTurn);
             }
         }
         if (Input.GetKeyDown(KeyCode.RightArrow) || (Input.GetKeyDown(KeyCode.D)))
         {
-            if (gridMoveDirection != Direction.Left)
+            if (gridMoveDirection != Direction.Left && gridMoveDirection != Direction.Right)
             {
                 gridMoveDirection = Direction.Right;
+                SoundManager.PlaySound(SoundManager.Sound.SnakeTurn);
             }
         }
     }
@@ -175,8 +181,12 @@ public class Snake : MonoBehaviour
                     //luodaan teksti Dead! ja käärmeen state muuttuu kuolleeksi
                     // CMDebug.TextPopup("Dead!", transform.position);
                     SoundManager.PlaySound(SoundManager.Sound.SnakeDeath); //Kuoleman ääni
+
+                    //Käärme kuoli
                     state = State.Dead;
-                    GameHandler.SnakeDied(); // kun käärme kuolee päivitetään uusi mahdollinen piste-ennätys
+
+                    //Kutsutaan GameHandlerin SnakeDied funktiota
+                    GameHandler.SnakeDied();
                 }
             }
 
@@ -190,7 +200,7 @@ public class Snake : MonoBehaviour
             transform.eulerAngles = new Vector3(0, 0, GetAngleFromVector(gridMoveDirectionVector) - 90);
 
             // Käärme liikkuu ruudun toiselle puolelle
-            gridPosition = levelGrid.ValidateGridPosition(gridPosition); 
+            gridPosition = levelGrid.ValidateGridPosition(gridPosition);
 
         }
     }
@@ -269,7 +279,7 @@ public class Snake : MonoBehaviour
             {
                 default:
                 case Direction.Up: //kun kääntyy ylös
-                    switch (snakeMovePosition.GetPrevioudDirection())
+                    switch (snakeMovePosition.GetPreviousDirection())
                     {
                         default:
                             angle = 0; break; //ylöspäin mentäessä käärmeen kulma on 0 astetta
@@ -284,7 +294,7 @@ public class Snake : MonoBehaviour
                     }
                     break;
                 case Direction.Down: //kun kääntyy alas
-                    switch (snakeMovePosition.GetPrevioudDirection())
+                    switch (snakeMovePosition.GetPreviousDirection())
                     {
                         default:
                             angle = 180; break; //alaspäin mentäessä käärmeen kulma on 180 astetta
@@ -299,7 +309,7 @@ public class Snake : MonoBehaviour
                     }
                     break;
                 case Direction.Left: //kun kääntyy vasemmalle
-                    switch (snakeMovePosition.GetPrevioudDirection())
+                    switch (snakeMovePosition.GetPreviousDirection())
                     {
                         default:
                             angle = 90; break; //vasemmalle liikkuessa käärmeen kulma on 90 astetta
@@ -314,7 +324,7 @@ public class Snake : MonoBehaviour
                     }
                     break;
                 case Direction.Right: //kun kääntyy oikealle
-                    switch (snakeMovePosition.GetPrevioudDirection())
+                    switch (snakeMovePosition.GetPreviousDirection())
                     {
                         default:
                             angle = -90; break; //oikealle liikkuessa käärmeen kulma on -90 astetta
@@ -366,7 +376,7 @@ public class Snake : MonoBehaviour
         {
             return direction;
         }
-        public Direction GetPrevioudDirection()
+        public Direction GetPreviousDirection()
         {
             //Jos ei ole aikaisempaa liikesuuntaa, palauttaa käärmeelle vakio liikesuunnan
             if (previousSnakeMovePosition == null)
