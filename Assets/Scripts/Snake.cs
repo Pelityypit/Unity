@@ -7,8 +7,6 @@ using CodeMonkey;
 
 public class Snake : MonoBehaviour
 {
-
-
     private enum Direction
     {
         Left,
@@ -22,8 +20,6 @@ public class Snake : MonoBehaviour
         Alive,
         Dead
     }
-
-
     private State state;
     private Vector2Int gridPosition; // määrittelee käärmeen sijainnin
     private Direction gridMoveDirection; // määrittelee automaattisen liikkeen suunnan
@@ -68,8 +64,6 @@ public class Snake : MonoBehaviour
                 break;
 
         }
-
-
     }
 
     // -- LIIKKUMINEN --
@@ -83,10 +77,8 @@ public class Snake : MonoBehaviour
         {
             if (gridMoveDirection != Direction.Down && gridMoveDirection != Direction.Up)
             { // jos emme liiku alaspäin, voimme liikkua ylöspäin
-
                 gridMoveDirection = Direction.Up;
                 SoundManager.PlaySound(SoundManager.Sound.SnakeTurn);
-
             }
         }
         if (Input.GetKeyDown(KeyCode.DownArrow) || (Input.GetKeyDown(KeyCode.S)))
@@ -122,23 +114,16 @@ public class Snake : MonoBehaviour
         if (gridMoveTimer >= gridMoveTimerMax)
         {
             gridMoveTimer -= gridMoveTimerMax;
-
-
-
             SnakeMovePosition previousSnakeMovePosition = null;
             //jos on olemassa aikaisempi kehon sijainti niin tallennetaan se uuteen kehon osaan
             if (snakeMovePositionList.Count > 0)
             {
-                //
                 previousSnakeMovePosition = snakeMovePositionList[0];
             }
 
             SnakeMovePosition snakeMovePosition = new SnakeMovePosition(previousSnakeMovePosition, gridPosition, gridMoveDirection);
-
             // tallennetaan listaan käärmeen kehon sijainti
             snakeMovePositionList.Insert(0, snakeMovePosition);
-
-
 
             //Liikkuvuuden määritys
             Vector2Int gridMoveDirectionVector;
@@ -153,9 +138,10 @@ public class Snake : MonoBehaviour
             //muutetaaan gridPosition
             gridPosition += gridMoveDirectionVector;
 
-
             bool snakeAteFood = levelGrid.TrySnakeEatFood(gridPosition);
-            if (snakeAteFood)
+            bool snakeAteApple = levelGrid.TrySnakeEatApple(gridPosition);
+            bool snakeAteQuestion = levelGrid.TrySnakeEatQuestion(gridPosition);
+            if (snakeAteFood || snakeAteApple || snakeAteQuestion)
             {
                 // kun käärme syö, kasvata kehoa
                 snakeBodySize++;
@@ -175,7 +161,6 @@ public class Snake : MonoBehaviour
             {
                 Vector2Int snakeBodyPartGridPosition = snakeBodyPart.GetGridPosition();
 
-
                 if (gridPosition == snakeBodyPartGridPosition) //jos käärmeen pään sijainti on sama kuin jollain sen kehon osalla
                 {
                     //luodaan teksti Dead! ja käärmeen state muuttuu kuolleeksi
@@ -189,8 +174,6 @@ public class Snake : MonoBehaviour
                     GameHandler.SnakeDied();
                 }
             }
-
-
 
             // päivitetään käärmeen sijainti gridPositionin x ja y arvoilla
             transform.position = new Vector3(gridPosition.x, gridPosition.y);
@@ -246,11 +229,8 @@ public class Snake : MonoBehaviour
         return gridPositionList;
     }
 
-
     private class SnakeBodyPart
     {
-
-
         private SnakeMovePosition snakeMovePosition;
         private Transform transform;
 
@@ -265,14 +245,11 @@ public class Snake : MonoBehaviour
             transform = snakeBodyGameObject.transform;
         }
 
-
         // kehon sijainnin määritys
         public void SetSnakeMovePosition(SnakeMovePosition snakeMovePosition)
         {
             this.snakeMovePosition = snakeMovePosition;
             transform.position = new Vector3(snakeMovePosition.GetGridPosition().x, snakeMovePosition.GetGridPosition().y);
-
-
             //kehon kulman määritys käännyttäessä
             float angle;
             switch (snakeMovePosition.GetDirection())
@@ -347,7 +324,6 @@ public class Snake : MonoBehaviour
         {
             return snakeMovePosition.GetGridPosition();
         }
-
     }
 
     //Tallentaa käärmeen kehon osan liikeen suunnan sekä sijainnin ja jakaa sen eteenpäin
@@ -390,8 +366,5 @@ public class Snake : MonoBehaviour
 
         }
     }
-
-
-
 
 }

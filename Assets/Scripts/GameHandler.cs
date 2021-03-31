@@ -21,13 +21,9 @@ public class GameHandler : MonoBehaviour {
     // Start is called before the first frame update
     private void Start() {
         Debug.Log("GameHandler.Start");
-
         levelGrid = new LevelGrid(29, 21); // oli 20, 20 muutettu jotta borderi toimis
-
         snake.Setup(levelGrid);
-        levelGrid.Setup(snake);
-
-        
+        levelGrid.Setup(snake);  
     }
 
     public static void SnakeDied() {
@@ -35,6 +31,5 @@ public class GameHandler : MonoBehaviour {
         Score.TrySetNewHighscore();
         GameOverWindow.ShowStatic();
     }
-
 }
 

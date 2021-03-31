@@ -168,6 +168,8 @@ MonoBehaviour:
   snakeBodySprite: {fileID: 21300000, guid: 98ac5315b27fe8a4aa7e58d0af16b333, type: 3}
   snakeTailSprite: {fileID: 0}
   foodSprite: {fileID: 21300000, guid: 5e8540e9fdae58e49a8da18aa5029cd4, type: 3}
+  appleSprite: {fileID: 21300000, guid: 36b87cedd74ebd14db3a8c90b7f03d15, type: 3}
+  questionSprite: {fileID: 21300000, guid: 782e1b633938a654d861e5fc556ed80a, type: 3}
   soundAudioClipArray:
   - sound: 0
     audioClip: {fileID: 8300000, guid: 5c4220802c553ad4b8ac235b0c7bb9c3, type: 3}
@@ -474,7 +476,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 832, y: 518}
+  m_AnchoredPosition: {x: 313, y: 207}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1390470776
@@ -490,15 +492,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.042452812, g: 0.27164227, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 30
+    m_Font: {fileID: 12800000, guid: bfc767f1a5ed9ef4db81a37bcb2011fa, type: 3}
+    m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -589,7 +591,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
@@ -627,6 +629,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1561695191}
     m_Modifications:
+    - target: {fileID: 7106012987480446337, guid: 6c8a145425bf1c646989207af05ccfa5,
+        type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: bfc767f1a5ed9ef4db81a37bcb2011fa,
+        type: 3}
     - target: {fileID: 7106012988449446260, guid: 6c8a145425bf1c646989207af05ccfa5,
         type: 3}
       propertyPath: m_Name
@@ -645,7 +653,7 @@ PrefabInstance:
     - target: {fileID: 7106012988449446263, guid: 6c8a145425bf1c646989207af05ccfa5,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7106012988449446263, guid: 6c8a145425bf1c646989207af05ccfa5,
         type: 3}
@@ -968,7 +976,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1, y: 523}
+  m_AnchoredPosition: {x: -2, y: 213}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1967341991
@@ -984,19 +992,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.24671888, b: 1, a: 1}
+  m_Color: {r: 0.995283, g: 0.9977617, b: 1, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 50
+    m_Font: {fileID: 12800000, guid: bfc767f1a5ed9ef4db81a37bcb2011fa, type: 3}
+    m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 4
-    m_MaxSize: 50
+    m_MinSize: 0
+    m_MaxSize: 70
     m_Alignment: 1
     m_AlignByGeometry: 0
     m_RichText: 1

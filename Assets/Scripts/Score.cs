@@ -25,6 +25,11 @@ public static class Score
          // lisätään 10 pistettä
         score += 10;
     }
+
+    public static void AddMoreScore() {
+        // lisätään 20 pistettä
+        score += 20;
+    }
      public static int GetHighscore() {
         return PlayerPrefs.GetInt("Highscore", 0); // tallentaa piste-ennätyksen, oletus on 0
     }
