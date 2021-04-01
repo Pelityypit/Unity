@@ -25,7 +25,6 @@ public static class Score
          // lisätään 10 pistettä
         score += 10;
     }
-
     public static void AddMoreScore() {
         // lisätään 20 pistettä
         score += 20;
@@ -40,10 +39,8 @@ public static class Score
 
     public static bool TrySetNewHighscore(int score) {
         // testaa onko uusi pistemäärä suurempi kuin edellinen piste-ennätys
-        // jos on palauttaa tosi, muutoin epätosi
         highscore = GetHighscore(); // nykyinen piste-ennätys
         if (score > highscore) {
-            
             PlayerPrefs.SetInt("Highscore", score); // lisätään uusi pistemäärä jos se on suurempi kuin edellinen piste-ennätys
             PlayerPrefs.Save(); // uuden pistemäärän tallennus
             if(OnHighscoreChanged != null) OnHighscoreChanged(null, EventArgs.Empty);

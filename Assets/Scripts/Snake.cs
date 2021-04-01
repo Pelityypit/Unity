@@ -4,9 +4,11 @@ using UnityEngine;
 using CodeMonkey.Utils;
 using System.Linq;
 using CodeMonkey;
+using UnityEngine.UI;
 
 public class Snake : MonoBehaviour
 {
+    [SerializeField] ParticleSystem _particleSystem;
     private enum Direction
     {
         Left,
@@ -41,16 +43,13 @@ public class Snake : MonoBehaviour
         gridMoveTimerMax = 0.2f; // liikkumisnopeus: mitä pienempi arvo, sitä useampi liike per frame
         gridMoveTimer = gridMoveTimerMax;
         gridMoveDirection = Direction.Right;  // alustetaan käärme liikkumaan oikealle
-
         snakeMovePositionList = new List<SnakeMovePosition>();
         snakeBodySize = 0; // alustetaan käärmeen kooksi 0
-
         snakeBodyPartList = new List<SnakeBodyPart>();
         //Alustetaan käärme eläväksi pelin alkaessa
         state = State.Alive;
     }
 
-    // Update is called once per frame
     void Update()
     {
         switch (state)
@@ -62,10 +61,8 @@ public class Snake : MonoBehaviour
             //Jos state muuttuu kuolleeksi: peli päättyy
             case State.Dead:
                 break;
-
         }
     }
-
     // -- LIIKKUMINEN --
     // määritetään liikkumisnapit: wasd ja nuolinapit
     // määritetään liikkumissuunnat, asetetaan x ja y-askeleille arvot suunnan mukaisesti
@@ -106,7 +103,6 @@ public class Snake : MonoBehaviour
             }
         }
     }
-
     // -- KENTÄN PÄIVITYS -- 
     private void HandleGridMovement()
     {
@@ -166,44 +162,37 @@ public class Snake : MonoBehaviour
                     //luodaan teksti Dead! ja käärmeen state muuttuu kuolleeksi
                     // CMDebug.TextPopup("Dead!", transform.position);
                     SoundManager.PlaySound(SoundManager.Sound.SnakeDeath); //Kuoleman ääni
-
                     //Käärme kuoli
                     state = State.Dead;
-
+                    // Kun käärme kuolee particle system käynnistyy
+                    _particleSystem.Play(); 
                     //Kutsutaan GameHandlerin SnakeDied funktiota
                     GameHandler.SnakeDied();
                 }
             }
-
             // päivitetään käärmeen sijainti gridPositionin x ja y arvoilla
             transform.position = new Vector3(gridPosition.x, gridPosition.y);
             // haetaan pään kääntyminen Vector2Intin kulmasta (z-akseli), joka saa parametrina pään suunnan
             // euler angle on oikea termi z-akselille
             // kulmasta pitää vähentää 90 astetta, koska unityssä 0-arvo osoittaa oikealle
             transform.eulerAngles = new Vector3(0, 0, GetAngleFromVector(gridMoveDirectionVector) - 90);
-
             // Käärme liikkuu ruudun toiselle puolelle
             gridPosition = levelGrid.ValidateGridPosition(gridPosition);
-
         }
     }
-
     // luo käärmeen kehon käärmeen syötyä hedelmän
     private void CreateSnakeBodyPart()
     {
         snakeBodyPartList.Add(new SnakeBodyPart(snakeBodyPartList.Count));
     }
-
     // lisää kehoon lisää palasia
     private void UpdateSnakeBodyParts()
     {
         for (int i = 0; i < snakeBodyPartList.Count; i++)
         {
             snakeBodyPartList[i].SetSnakeMovePosition(snakeMovePositionList[i]);
-
         }
     }
-
     // määritetään pään kulma kääntyessä
     private float GetAngleFromVector(Vector2Int dir)
     {
@@ -216,7 +205,6 @@ public class Snake : MonoBehaviour
     {
         return gridPosition;
     }
-
     // Palauttaa listan käärmeen pään ja kehon sijainneista
     public List<Vector2Int> GetFullSnakeGridPositionList()
     {
@@ -233,7 +221,6 @@ public class Snake : MonoBehaviour
     {
         private SnakeMovePosition snakeMovePosition;
         private Transform transform;
-
         // luodaan uusi gameObject "SnakeBody" 
         // lisätään uusi snakebody sprite GameScene/GameHandler/GameAssets
         public SnakeBodyPart(int bodyIndex)
@@ -244,7 +231,6 @@ public class Snake : MonoBehaviour
             snakeBodyGameObject.GetComponent<SpriteRenderer>().sortingOrder = -1;
             transform = snakeBodyGameObject.transform;
         }
-
         // kehon sijainnin määritys
         public void SetSnakeMovePosition(SnakeMovePosition snakeMovePosition)
         {
@@ -363,8 +349,6 @@ public class Snake : MonoBehaviour
             {
                 return previousSnakeMovePosition.direction;
             }
-
         }
     }
-
 }

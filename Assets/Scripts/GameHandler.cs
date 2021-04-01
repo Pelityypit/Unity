@@ -7,7 +7,6 @@ using CodeMonkey.Utils;
 public class GameHandler : MonoBehaviour {
 
     [SerializeField] private Snake snake;
-    
     private LevelGrid levelGrid;
     private GameHandler instance;
 
@@ -18,7 +17,6 @@ public class GameHandler : MonoBehaviour {
         Debug.Log(PlayerPrefs.GetInt("Highscore")); // varmistetaan että SetInt toimii
     } 
 
-    // Start is called before the first frame update
     private void Start() {
         Debug.Log("GameHandler.Start");
         levelGrid = new LevelGrid(29, 21); // oli 20, 20 muutettu jotta borderi toimis

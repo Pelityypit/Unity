@@ -42,13 +42,10 @@ public class LevelGrid {
             foodGridPosition = new Vector2Int(Random.Range(0, width), Random.Range(0, height));
             // Käärmeen pään ja kehon päälle ei ilmesty ruokaa
         } while (snake.GetFullSnakeGridPositionList().IndexOf(foodGridPosition) != -1); 
-
         // luodaan uusi peliobjekti "food", annetaan typeofilla sille spriterenderer komponentti
         foodGameObject = new GameObject("Food", typeof(SpriteRenderer));
-         
         // haetaan objektille gameassetsin instancesta foodsprite
         foodGameObject.GetComponent<SpriteRenderer>().sprite = GameAssets.instance.foodSprite;
-    
         // määritetään foodgameobjektille sijainti pelikentällä
         foodGameObject.transform.position = new Vector3(foodGridPosition.x, foodGridPosition.y);
     }
@@ -69,58 +66,45 @@ public class LevelGrid {
 
     private void SpawnApple() {
         do {
-            // satunnaiset sijainnit x ja y akseleilla pelikentällä
             appleGridPosition = new Vector2Int(Random.Range(0, width), Random.Range(0, height));
-            // Käärmeen pään ja kehon päälle ei ilmesty ruokaa
-        } while (snake.GetFullSnakeGridPositionList().IndexOf(appleGridPosition) != -1); 
-        // luodaan uusi peliobjekti "food", annetaan typeofilla sille spriterenderer komponentti
+            }
+        while (snake.GetFullSnakeGridPositionList().IndexOf(appleGridPosition) != -1); 
         appleGameObject = new GameObject("Apple", typeof(SpriteRenderer));
-        // haetaan objektille gameassetsin instancesta applesprite
         appleGameObject.GetComponent<SpriteRenderer>().sprite = GameAssets.instance.appleSprite;
-        // määritetään foogameobjektille sijainti pelikentällä
         appleGameObject.transform.position = new Vector3(appleGridPosition.x, appleGridPosition.y);
     }
-    // verrataan käärmeen ja hedelmän sijainteja
-    // jos sijainnit samat, tuhotaan foodgameobject ja spawnataan uusi
     public bool TrySnakeEatApple(Vector2Int snakeGridPosition) {
         if (snakeGridPosition == appleGridPosition) {
             Object.Destroy(appleGameObject);
             SpawnApple();
-            Score.AddMoreScore(); // Kun käärme syö saa pisteitä
-            // CMDebug.TextPopupMouse("Snake ate food");
-            return true; // tosi jos käärme on syönyt
+            Score.AddMoreScore(); 
+            return true; 
         } else {
             return false;
         }
     }
     private void SpawnQuestion() {
         do {
-            // satunnaiset sijainnit x ja y akseleilla pelikentällä
             questionGridPosition = new Vector2Int(Random.Range(0, width), Random.Range(0, height));
-            // Käärmeen pään ja kehon päälle ei ilmesty ruokaa
-        } while (snake.GetFullSnakeGridPositionList().IndexOf(questionGridPosition) != -1); 
-        // luodaan uusi peliobjekti "food", annetaan typeofilla sille spriterenderer komponentti
+        } 
+        while (snake.GetFullSnakeGridPositionList().IndexOf(questionGridPosition) != -1); 
         questionGameObject = new GameObject("Question", typeof(SpriteRenderer));
-        // haetaan objektille gameassetsin instancesta applesprite
         questionGameObject.GetComponent<SpriteRenderer>().sprite = GameAssets.instance.questionSprite;
-        // määritetään foogameobjektille sijainti pelikentällä
         questionGameObject.transform.position = new Vector3(questionGridPosition.x, questionGridPosition.y);
     }
-    // verrataan käärmeen ja hedelmän sijainteja
-    // jos sijainnit samat, tuhotaan foodgameobject ja spawnataan uusi
+ 
     public bool TrySnakeEatQuestion(Vector2Int snakeGridPosition) {
         if (snakeGridPosition == questionGridPosition) {
             Object.Destroy(questionGameObject);
             SpawnQuestion();
           //  Score.AddScore(); // Kun käärme syö saa pisteitä
-            // CMDebug.TextPopupMouse("Snake ate food");
-            return true; // tosi jos käärme on syönyt
+            return true; 
         } else {
             return false;
         }
     }
 
-    // Käärme liikkuu ruudun toiselle puolelle
+    // Käärme liikkuu ruudun läpi
      public Vector2Int ValidateGridPosition(Vector2Int gridPosition) {
         if (gridPosition.x < -10) {
             gridPosition.x = width - 0;

@@ -17,6 +17,7 @@ public class SceneLoader : MonoBehaviour
     }
 
     public void LoadNextLevel() {
+        // Ruudun siirtymät
         StartCoroutine(LoadScenesWithTransitions(SceneManager.GetActiveScene().buildIndex + 1));
     }
 
