@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using CodeMonkey.Utils;
 
-public class GameOverWindow : MonoBehaviour
+public class PauseGame : MonoBehaviour
 {
 
-    private static GameOverWindow instance;
+    private static PauseGame instance;
 
 
     //Kun peli alkaa
@@ -16,14 +16,16 @@ public class GameOverWindow : MonoBehaviour
         instance = this;
 
 
-        //Haetaan retryBtn -nappi
-        transform.Find("retryBtn").GetComponent<Button_UI>().ClickFunc = () => {
-            //retryBtn lataa uudestaan "GameScene" -ruudun
-            Loader.Load(Loader.Scene.GameScene);
+        //Haetaan resumeBtn -nappi
+        transform.Find("resumeBtn").GetComponent<Button_UI>().ClickFunc = () => {
+
+            GameHandler.GamePaused(false);
         };
         //Haetaan extiGame -nappi 
         transform.Find("exitGame").GetComponent<Button_UI>().ClickFunc = () =>
         {
+            //Jatketaan peliä, jotta scenet voivat latautua
+            Time.timeScale = 1;
             //gameExit lataa "MainMenu" -ruudun
             Loader.Load(Loader.Scene.MainMenu);
         };
@@ -31,13 +33,13 @@ public class GameOverWindow : MonoBehaviour
         Hide();
     }
 
-    //Tuodaan retryBtn esille
+    //Tuodaan PauseWindow:n nappulat esille
     private void Show()
     {
         gameObject.SetActive(true);
     }
 
-    //Piilotetaan retryBtn
+    //Piilotetaan PauseWindow:n nappulat
     private void Hide()
     {
         gameObject.SetActive(false);
@@ -47,4 +49,12 @@ public class GameOverWindow : MonoBehaviour
     {
         instance.Show();
     }
+
+
+    //Staattinen hide()
+    public static void HideStatic()
+    {
+        instance.Hide();
+    }
+
 }

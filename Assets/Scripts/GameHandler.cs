@@ -29,5 +29,28 @@ public class GameHandler : MonoBehaviour {
         Score.TrySetNewHighscore();
         GameOverWindow.ShowStatic();
     }
+
+    //Pysäytetään peli
+    public static void GamePaused(bool Pause)
+    {
+        if (Pause == true)
+        {
+            Time.timeScale = 0;
+            //Nappulat tulevat esiin
+            PauseGame.ShowStatic();
+        }
+
+        //Jos peli pause == false, peli jatkuu
+        else
+        {
+            Time.timeScale = 1;
+            // Piilotetaan nappulat
+            PauseGame.HideStatic();
+            
+        }
+     
+
+    }
+
 }
 

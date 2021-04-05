@@ -67,8 +67,23 @@ public class Snake : MonoBehaviour
     // määritetään liikkumisnapit: wasd ja nuolinapit
     // määritetään liikkumissuunnat, asetetaan x ja y-askeleille arvot suunnan mukaisesti
     // ylöspäin liikkuessa x=0 ja y=+1 koska liikutaan vertikaalisesti mutta ei horisontaalisesti
+
     private void HandleInput()
     {
+        
+        // Esc painettaessa pysäytetään peli
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            GameHandler.GamePaused(true);
+        }
+
+       // Uudestaan painettaessa esc jatketaan peliä
+        
+        if (Input.GetKeyDown(KeyCode.Return))
+            {
+            GameHandler.GamePaused(false);
+            }
+        
 
         if (Input.GetKeyDown(KeyCode.UpArrow) || (Input.GetKeyDown(KeyCode.W)))
         {
