@@ -16,20 +16,17 @@ public class GameHandler : MonoBehaviour {
         PlayerPrefs.Save(); // tiedon tallennus
         Debug.Log(PlayerPrefs.GetInt("Highscore")); // varmistetaan että SetInt toimii
     } 
-
     private void Start() {
         Debug.Log("GameHandler.Start");
         levelGrid = new LevelGrid(29, 21); // oli 20, 20 muutettu jotta borderi toimis
         snake.Setup(levelGrid);
         levelGrid.Setup(snake);  
     }
-
     public static void SnakeDied() {
         // kun käärmee kuolee päivitetään mahdollinen uusi piste-ennätys
         Score.TrySetNewHighscore();
         GameOverWindow.ShowStatic();
     }
-
     //Pysäytetään peli
     public static void GamePaused(bool Pause)
     {
@@ -39,18 +36,13 @@ public class GameHandler : MonoBehaviour {
             //Nappulat tulevat esiin
             PauseGame.ShowStatic();
         }
-
         //Jos peli pause == false, peli jatkuu
         else
         {
             Time.timeScale = 1;
             // Piilotetaan nappulat
-            PauseGame.HideStatic();
-            
+            PauseGame.HideStatic();   
         }
-     
-
     }
-
 }
 

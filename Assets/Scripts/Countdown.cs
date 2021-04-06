@@ -29,7 +29,6 @@ public class Countdown : MonoBehaviour
         // "GO!" näkyy ruudulla 2 sekuntia
         yield return new WaitForSeconds(1f);
         // "GO!" jälkeen vaihtuu ruutu peliruutuun
-        
         SceneManager.LoadScene("GameScene");
     }
 }

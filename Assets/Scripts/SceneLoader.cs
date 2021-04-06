@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class SceneLoader : MonoBehaviour
 {
     public Animator transition;
-    public float transitionTime = 2f;
+    public float transitionTime = 4f;
 
     // Ruutujen siirtymät, kahden sekunnin viivellä
     IEnumerator LoadScenesWithTransitions(int levelIndex) {
@@ -40,8 +40,6 @@ public class SceneLoader : MonoBehaviour
         LoadNextLevel();
        SceneManager.LoadScene("HowToPlay");
    }
-
-
       public void Score() 
    {
        // Kun painaa score-nappia, siirrytään päävalikost "Scoreboard" -ruudulle
@@ -52,15 +50,15 @@ public class SceneLoader : MonoBehaviour
     //Siirrytään takaisin päävalikkoon
    public void BackToMainMenu()
    {
+        LoadNextLevel();
        SceneManager.LoadScene("MainMenu");
    }
 
     //Siirrytään highscoreen
      public void BackToMainMenuFromScoreboard()
    {
-       SceneManager.LoadScene("ScoreBoard");
+       SceneManager.LoadScene("MainMenu");
    }
-
 
     //Lopetetaan peli
    public void QuitGame()

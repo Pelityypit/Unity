@@ -70,21 +70,16 @@ public class Snake : MonoBehaviour
 
     private void HandleInput()
     {
-        
         // Esc painettaessa pysäytetään peli
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             GameHandler.GamePaused(true);
         }
-
        // Uudestaan painettaessa esc jatketaan peliä
-        
         if (Input.GetKeyDown(KeyCode.Return))
             {
             GameHandler.GamePaused(false);
             }
-        
-
         if (Input.GetKeyDown(KeyCode.UpArrow) || (Input.GetKeyDown(KeyCode.W)))
         {
             if (gridMoveDirection != Direction.Down && gridMoveDirection != Direction.Up)
