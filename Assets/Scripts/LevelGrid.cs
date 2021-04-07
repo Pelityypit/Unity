@@ -10,6 +10,7 @@ public class LevelGrid {
     private GameObject foodGameObject;
     private int width;
     private int height;
+    private int rand;
     private Snake snake;
     private Vector2Int appleGridPosition;
     private GameObject appleGameObject;
@@ -37,6 +38,9 @@ public class LevelGrid {
 
     // funktio jolla luodaan ruokaa pelikentälle
     private void SpawnFood() {
+
+        rand = Random.Range(0, GameAssets.instance.foodSprite.Length);
+
         do {
             // satunnaiset sijainnit x ja y akseleilla pelikentällä
             foodGridPosition = new Vector2Int(Random.Range(0, width), Random.Range(0, height));
@@ -45,7 +49,7 @@ public class LevelGrid {
         // luodaan uusi peliobjekti "food", annetaan typeofilla sille spriterenderer komponentti
         foodGameObject = new GameObject("Food", typeof(SpriteRenderer));
         // haetaan objektille gameassetsin instancesta foodsprite
-        foodGameObject.GetComponent<SpriteRenderer>().sprite = GameAssets.instance.foodSprite;
+        foodGameObject.GetComponent<SpriteRenderer>().sprite = GameAssets.instance.foodSprite[rand];
         // määritetään foodgameobjektille sijainti pelikentällä
         foodGameObject.transform.position = new Vector3(foodGridPosition.x, foodGridPosition.y);
     }

@@ -80,7 +80,7 @@ public class Snake : MonoBehaviour
             {
             GameHandler.GamePaused(false);
             }
-        if (Input.GetKeyDown(KeyCode.UpArrow) || (Input.GetKeyDown(KeyCode.W)))
+        if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
         {
             if (gridMoveDirection != Direction.Down && gridMoveDirection != Direction.Up)
             { // jos emme liiku alaspäin, voimme liikkua ylöspäin
@@ -88,7 +88,7 @@ public class Snake : MonoBehaviour
                 SoundManager.PlaySound(SoundManager.Sound.SnakeTurn);
             }
         }
-        if (Input.GetKeyDown(KeyCode.DownArrow) || (Input.GetKeyDown(KeyCode.S)))
+        if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
         {
             if (gridMoveDirection != Direction.Up && gridMoveDirection != Direction.Down)
             {
@@ -96,7 +96,7 @@ public class Snake : MonoBehaviour
                 SoundManager.PlaySound(SoundManager.Sound.SnakeTurn);
             }
         }
-        if (Input.GetKeyDown(KeyCode.LeftArrow) || (Input.GetKeyDown(KeyCode.A)))
+        if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
         {
             if (gridMoveDirection != Direction.Right && gridMoveDirection != Direction.Left)
             {
@@ -104,7 +104,7 @@ public class Snake : MonoBehaviour
                 SoundManager.PlaySound(SoundManager.Sound.SnakeTurn);
             }
         }
-        if (Input.GetKeyDown(KeyCode.RightArrow) || (Input.GetKeyDown(KeyCode.D)))
+        if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
         {
             if (gridMoveDirection != Direction.Left && gridMoveDirection != Direction.Right)
             {

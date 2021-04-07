@@ -257,7 +257,11 @@ MonoBehaviour:
   snakeHeadSprite: {fileID: 21300000, guid: dda2cdefa93b92e4ba7be0d6858e2c6b, type: 3}
   snakeBodySprite: {fileID: 21300000, guid: 98ac5315b27fe8a4aa7e58d0af16b333, type: 3}
   snakeTailSprite: {fileID: 0}
-  foodSprite: {fileID: 21300000, guid: 5e8540e9fdae58e49a8da18aa5029cd4, type: 3}
+  foodSprite:
+  - {fileID: 21300000, guid: 1496a4febd3afdd49823322ecd6045ad, type: 3}
+  - {fileID: 21300000, guid: 154a34f490f85234fbd8fa8106195777, type: 3}
+  - {fileID: 21300000, guid: 5fd5ad5054131c147ad9094a313371ad, type: 3}
+  - {fileID: 21300000, guid: 93c7cf37aecace943905643ca924b511, type: 3}
   appleSprite: {fileID: 21300000, guid: 36b87cedd74ebd14db3a8c90b7f03d15, type: 3}
   questionSprite: {fileID: 21300000, guid: 782e1b633938a654d861e5fc556ed80a, type: 3}
   soundAudioClipArray:
@@ -6787,6 +6791,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SceneLoaderNoText
+      objectReference: {fileID: 0}
+    - target: {fileID: 5006741777211592419, guid: c631db7aefd751747a82181d8242fdeb,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c631db7aefd751747a82181d8242fdeb, type: 3}
