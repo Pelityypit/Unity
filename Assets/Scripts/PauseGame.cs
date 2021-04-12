@@ -16,10 +16,12 @@ public class PauseGame : MonoBehaviour
         transform.Find("resumeBtn").GetComponent<Button_UI>().ClickFunc = () => {
 
             GameHandler.GamePaused(false);
+
         };
         //Haetaan extiGame -nappi 
-        transform.Find("exitGame").GetComponent<Button_UI>().ClickFunc = () =>
+        transform.Find("exitBtn").GetComponent<Button_UI>().ClickFunc = () =>
         {
+            
             //Jatketaan peliä, jotta scenet voivat latautua
             Time.timeScale = 1;
             //gameExit lataa "MainMenu" -ruudun

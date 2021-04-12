@@ -22,7 +22,7 @@ public class GameOverWindow : MonoBehaviour
             Loader.Load(Loader.Scene.GameScene);
         };
         //Haetaan extiGame -nappi 
-        transform.Find("exitGame").GetComponent<Button_UI>().ClickFunc = () =>
+        transform.Find("exitBtn").GetComponent<Button_UI>().ClickFunc = () =>
         {
             //gameExit lataa "MainMenu" -ruudun
             Loader.Load(Loader.Scene.MainMenu);

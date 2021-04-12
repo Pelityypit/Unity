@@ -8,8 +8,10 @@ public class LevelGrid {
 
     private Vector2Int foodGridPosition;
     private GameObject foodGameObject;
-    private int width;
-    private int height;
+    private int minWidth = -20;
+    private int maxWidth = 20; // Yhden lisää jotta käärme voi syntyä toiselta puolelta
+    private int minHeight = -15;
+    private int maxHeight = 15; // Yhden lisää jotta käärme voi syntyä toiselta puolelta
     private int rand;
     private Snake snake;
     private Vector2Int appleGridPosition;
@@ -22,11 +24,13 @@ public class LevelGrid {
     private GameObject speedBoostGameObject;
 
     // LevelGrid saa kentän koon parametreina
-    public LevelGrid(int width, int height) {
-        this.width = width;
-        this.height = height; 
+    public LevelGrid(int minWidth, int maxWidth, int minHeight, int maxHeight)
+    {
+        this.minWidth = minWidth;
+        this.maxWidth = maxWidth;
+        this.minHeight = minHeight;
+        this.maxHeight = maxHeight;
     }
-
     public void Setup(Snake snake) {
         this.snake = snake;
 
@@ -49,7 +53,7 @@ public class LevelGrid {
 
         do {
             // satunnaiset sijainnit x ja y akseleilla pelikentällä
-            foodGridPosition = new Vector2Int(Random.Range(0, width), Random.Range(0, height));
+            foodGridPosition = new Vector2Int(Random.Range(minWidth + 1, maxWidth - 1), Random.Range(minHeight + 1, maxHeight - 1));
             // Käärmeen pään ja kehon päälle ei ilmesty ruokaa
         } while (snake.GetFullSnakeGridPositionList().IndexOf(foodGridPosition) != -1); 
         // luodaan uusi peliobjekti "food", annetaan typeofilla sille spriterenderer komponentti
@@ -76,7 +80,7 @@ public class LevelGrid {
 
     private void SpawnApple() {
         do {
-            appleGridPosition = new Vector2Int(Random.Range(0, width), Random.Range(0, height));
+            appleGridPosition = new Vector2Int(Random.Range(minWidth + 1, maxWidth - 1), Random.Range(minHeight + 1, maxHeight - 1));
             }
         while (snake.GetFullSnakeGridPositionList().IndexOf(appleGridPosition) != -1); 
         appleGameObject = new GameObject("Apple", typeof(SpriteRenderer));
@@ -95,7 +99,7 @@ public class LevelGrid {
     }
     private void SpawnQuestion() {
         do {
-            questionGridPosition = new Vector2Int(Random.Range(0, width), Random.Range(0, height));
+            questionGridPosition = new Vector2Int(Random.Range(minWidth + 1, maxWidth - 1), Random.Range(minHeight + 1, maxHeight - 1));
         } 
         while (snake.GetFullSnakeGridPositionList().IndexOf(questionGridPosition) != -1); 
         questionGameObject = new GameObject("Question", typeof(SpriteRenderer));
@@ -115,7 +119,7 @@ public class LevelGrid {
     }
     private void SpawnSpeedBoost() {
         do {
-           speedBoostGridPosition = new Vector2Int(Random.Range(0, width), Random.Range(0, height));
+           speedBoostGridPosition = new Vector2Int(Random.Range(minWidth + 1, maxWidth - 1), Random.Range(minHeight + 1, maxHeight - 1));
         } 
         while (snake.GetFullSnakeGridPositionList().IndexOf(speedBoostGridPosition) != -1); 
         speedBoostGameObject = new GameObject("SpeedBoost", typeof(SpriteRenderer));
@@ -136,7 +140,7 @@ public class LevelGrid {
   
       private void SpawnPoisonReverse() {
         do {
-            poisonReverseGridPosition = new Vector2Int(Random.Range(0, width), Random.Range(0, height));
+            poisonReverseGridPosition = new Vector2Int(Random.Range(minWidth + 1, maxWidth - 1), Random.Range(minHeight + 1, maxHeight - 1));
             }
         while (snake.GetFullSnakeGridPositionList().IndexOf(poisonReverseGridPosition) != -1); 
         poisonReverseGameObject = new GameObject("PoisonReverse", typeof(SpriteRenderer));
@@ -155,19 +159,29 @@ public class LevelGrid {
     }
 
     // Käärme liikkuu ruudun läpi
-     public Vector2Int ValidateGridPosition(Vector2Int gridPosition) {
-        if (gridPosition.x < -10) {
-            gridPosition.x = width - 0;
+    public Vector2Int ValidateGridPosition(Vector2Int gridPosition)
+    {
+        // jos käärme menee leveyssuunnassa min rajan yli
+        if (gridPosition.x <= minWidth)
+        {
+            gridPosition.x = maxWidth - 1; // täytyy miinustaa jotta käärme tulisi toiselta puolelta läpi
         }
-           if (gridPosition.x > width - 0) {
-            gridPosition.x = -10;
-        } 
-             if (gridPosition.y < - 0) {
-            gridPosition.y = height - 0;
+        // jos käärme menee leveyssuunnassa max rajan yli
+        if (gridPosition.x >= maxWidth)
+        {
+            gridPosition.x = minWidth;
         }
-           if (gridPosition.y > height - 0) {
-            gridPosition.y = -1;
-        }  
+
+        // jos käärme menee pituussuunnassa min rajan yli
+        if (gridPosition.y <= minHeight)
+        {
+            gridPosition.y = maxHeight - 1; // täytyy miinustaa jotta käärme tulisi toiselta puolelta läpi
+        }
+        // jos käärme menee pituussuunnassa max rajan yli
+        if (gridPosition.y >= maxHeight)
+        {
+            gridPosition.y = minHeight;
+        }
         return gridPosition;
-    } 
+    }
 }

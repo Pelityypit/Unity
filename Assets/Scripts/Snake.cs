@@ -43,7 +43,7 @@ public class Snake : MonoBehaviour
  
     private void Awake()
     {
-        gridPosition = new Vector2Int(10, 10); // asetetaan sijainti: x=10, y=10
+        gridPosition = new Vector2Int(0, 0); // asetetaan sijainti: x=10, y=10
         gridMoveTimerMax = 0.2f; // liikkumisnopeus: mitä pienempi arvo, sitä useampi liike per frame
         gridMoveTimer = gridMoveTimerMax;
         gridMoveDirection = Direction.Right;  // alustetaan käärme liikkumaan oikealle
