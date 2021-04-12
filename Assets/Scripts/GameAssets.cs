@@ -23,6 +23,8 @@ public class GameAssets : MonoBehaviour
     public Sprite[] foodSprite;
     public Sprite appleSprite;
     public Sprite questionSprite;
+    public Sprite poisonReverseSprite;
+    public Sprite speedBoostSprite;
     public SoundAudioClip[] soundAudioClipArray;
 
     [Serializable]

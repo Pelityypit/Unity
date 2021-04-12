@@ -264,6 +264,9 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 93c7cf37aecace943905643ca924b511, type: 3}
   appleSprite: {fileID: 21300000, guid: 36b87cedd74ebd14db3a8c90b7f03d15, type: 3}
   questionSprite: {fileID: 21300000, guid: 782e1b633938a654d861e5fc556ed80a, type: 3}
+  poisonReverseSprite: {fileID: 21300000, guid: a808dd95583ca864f8f23235d7b33851,
+    type: 3}
+  speedBoostSprite: {fileID: 21300000, guid: 7150130be250c89488b703d7ee89edae, type: 3}
   soundAudioClipArray:
   - sound: 0
     audioClip: {fileID: 8300000, guid: 5c4220802c553ad4b8ac235b0c7bb9c3, type: 3}
@@ -483,6 +486,53 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &715579286
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 715579288}
+  - component: {fileID: 715579287}
+  m_Layer: 0
+  m_Name: PowerUp
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &715579287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 715579286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95b45d6c5db121340b9b6b47a178c0eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SnakeObj: {fileID: 1697344510}
+  isPowerUpActive: 0
+  snakeSpeed: 0
+  prevSnakeSpeed: 0
+--- !u!4 &715579288
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 715579286}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -8.1661, y: 15.4178, z: 1175.2651}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &744087423
 GameObject:
   m_ObjectHideFlags: 0
@@ -1562,6 +1612,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _particleSystem: {fileID: 2101601480}
+  gridMoveTimerMax: 0.2
+  powerupTimeObj: {fileID: 715579286}
+  snakeAteSpeedBoost: 0
 --- !u!1 &1737247286
 GameObject:
   m_ObjectHideFlags: 0
@@ -6791,6 +6844,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SceneLoaderNoText
+      objectReference: {fileID: 0}
+    - target: {fileID: 5006741777070805471, guid: c631db7aefd751747a82181d8242fdeb,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5006741777211592419, guid: c631db7aefd751747a82181d8242fdeb,
         type: 3}

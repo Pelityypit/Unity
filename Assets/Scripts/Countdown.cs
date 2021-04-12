@@ -12,7 +12,6 @@ public class Countdown : MonoBehaviour
     {
         StartCoroutine(CountdownToStart());
     }
-
     IEnumerator CountdownToStart()
     {
         // Käy koodia läpi kunnes countdownTime on nolla

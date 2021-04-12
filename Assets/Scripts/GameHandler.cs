@@ -9,6 +9,8 @@ public class GameHandler : MonoBehaviour {
     [SerializeField] private Snake snake;
     private LevelGrid levelGrid;
     private GameHandler instance;
+   
+  
 
     private void Awake(){
         Score.InitializeStatic();
@@ -26,6 +28,8 @@ public class GameHandler : MonoBehaviour {
         // kun käärmee kuolee päivitetään mahdollinen uusi piste-ennätys
         Score.TrySetNewHighscore();
         GameOverWindow.ShowStatic();
+        
+       
     }
     //Pysäytetään peli
     public static void GamePaused(bool Pause)

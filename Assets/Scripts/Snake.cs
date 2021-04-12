@@ -9,6 +9,7 @@ using UnityEngine.UI;
 public class Snake : MonoBehaviour
 {
     [SerializeField] ParticleSystem _particleSystem;
+    
     private enum Direction
     {
         Left,
@@ -26,17 +27,20 @@ public class Snake : MonoBehaviour
     private Vector2Int gridPosition; // määrittelee käärmeen sijainnin
     private Direction gridMoveDirection; // määrittelee automaattisen liikkeen suunnan
     private float gridMoveTimer; // määrittelee ajan seuraavaan liikeeseen
-    private float gridMoveTimerMax; // määrittelee ajan liikkeiden välillä, eli käärmeen liikkumisnopeuden
+    public float gridMoveTimerMax; // määrittelee ajan liikkeiden välillä, eli käärmeen liikkumisnopeuden
     private LevelGrid levelGrid;
     private int snakeBodySize; // muuttuja jossa tallennetaan käärmeen koko
     private List<SnakeMovePosition> snakeMovePositionList; // lista johon tallennetaan käärmeen kasvu ja sen osat
     private List<SnakeBodyPart> snakeBodyPartList; // lista johon tallennetaan käärmeen kasvu muutokset
-
+    public GameObject powerupTimeObj;
+    public  bool snakeAteSpeedBoost;
+  //  public bool isPowerUpActive = false;
     public void Setup(LevelGrid levelGrid)
     {
         this.levelGrid = levelGrid;
     }
 
+ 
     private void Awake()
     {
         gridPosition = new Vector2Int(10, 10); // asetetaan sijainti: x=10, y=10
@@ -57,6 +61,7 @@ public class Snake : MonoBehaviour
             case State.Alive:
                 HandleInput();
                 HandleGridMovement();
+             
                 break;
             //Jos state muuttuu kuolleeksi: peli päättyy
             case State.Dead:
@@ -114,7 +119,7 @@ public class Snake : MonoBehaviour
         }
     }
     // -- KENTÄN PÄIVITYS -- 
-    private void HandleGridMovement()
+    public void HandleGridMovement()
     {
         gridMoveTimer += Time.deltaTime;
         if (gridMoveTimer >= gridMoveTimerMax)
@@ -147,6 +152,8 @@ public class Snake : MonoBehaviour
             bool snakeAteFood = levelGrid.TrySnakeEatFood(gridPosition);
             bool snakeAteApple = levelGrid.TrySnakeEatApple(gridPosition);
             bool snakeAteQuestion = levelGrid.TrySnakeEatQuestion(gridPosition);
+            snakeAteSpeedBoost = levelGrid.TrySnakeEatSpeedBoost(gridPosition);
+            
             if (snakeAteFood || snakeAteApple || snakeAteQuestion)
             {
                 // kun käärme syö, kasvata kehoa
@@ -154,6 +161,12 @@ public class Snake : MonoBehaviour
                 CreateSnakeBodyPart(); // kun kasvu tapahtuu tee keho
                 SoundManager.PlaySound(SoundManager.Sound.SnakeEatFruit); // Syömisen ääniefekti
             }
+          
+            if (snakeAteSpeedBoost ) {
+                snakeBodySize++;
+                CreateSnakeBodyPart();
+             
+            } 
 
             // testataan onko lista liian iso perustuen käärmeen kokooon
             if (snakeMovePositionList.Count >= snakeBodySize + 1)

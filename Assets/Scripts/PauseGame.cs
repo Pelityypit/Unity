@@ -6,16 +6,12 @@ using CodeMonkey.Utils;
 
 public class PauseGame : MonoBehaviour
 {
-
     private static PauseGame instance;
-
 
     //Kun peli alkaa
     private void Awake()
     {
         instance = this;
-
-
         //Haetaan resumeBtn -nappi
         transform.Find("resumeBtn").GetComponent<Button_UI>().ClickFunc = () => {
 
@@ -32,13 +28,11 @@ public class PauseGame : MonoBehaviour
         //Kutsutaan pelin alkaessa Hide() -funktiota
         Hide();
     }
-
     //Tuodaan PauseWindow:n nappulat esille
     private void Show()
     {
         gameObject.SetActive(true);
     }
-
     //Piilotetaan PauseWindow:n nappulat
     private void Hide()
     {
@@ -49,12 +43,9 @@ public class PauseGame : MonoBehaviour
     {
         instance.Show();
     }
-
-
     //Staattinen hide()
     public static void HideStatic()
     {
         instance.Hide();
     }
-
 }

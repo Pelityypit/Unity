@@ -4,7 +4,6 @@ using UnityEngine;
 
 public static class SoundManager
 {
-
     public enum Sound
     {
         SnakeEatFruit,
@@ -29,8 +28,6 @@ public static class SoundManager
         }
         return null;
     }
-
-
 }
 
 
