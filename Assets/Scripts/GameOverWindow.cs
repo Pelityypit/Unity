@@ -6,18 +6,15 @@ using CodeMonkey.Utils;
 
 public class GameOverWindow : MonoBehaviour
 {
-
     private static GameOverWindow instance;
-
 
     //Kun peli alkaa
     private void Awake()
     {
         instance = this;
-
-
         //Haetaan retryBtn -nappi
-        transform.Find("retryBtn").GetComponent<Button_UI>().ClickFunc = () => {
+        transform.Find("retryBtn").GetComponent<Button_UI>().ClickFunc = () =>
+        {
             //retryBtn lataa uudestaan "GameScene" -ruudun
             Loader.Load(Loader.Scene.GameScene);
         };

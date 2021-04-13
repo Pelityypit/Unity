@@ -4,32 +4,30 @@ using UnityEngine;
 using CodeMonkey;
 using CodeMonkey.Utils;
 
-public class GameHandler : MonoBehaviour {
-
+public class GameHandler : MonoBehaviour
+{
     [SerializeField] private Snake snake;
     private LevelGrid levelGrid;
     private GameHandler instance;
-   
-  
-
-    private void Awake(){
+    public GameObject SpawnSpeedBoostObj;
+    private void Awake()
+    {
         Score.InitializeStatic();
         PlayerPrefs.SetInt("Highscore", 100); // SetInt ottaa parametreiksi avaimen ja arvon, joilla voidaan tallentaa tietoa
         PlayerPrefs.Save(); // tiedon tallennus
-        Debug.Log(PlayerPrefs.GetInt("Highscore")); // varmistetaan että SetInt toimii
-    } 
-    private void Start() {
-        Debug.Log("GameHandler.Start");
+    }
+    private void Start()
+    {
         levelGrid = new LevelGrid(-20, 20, -15, 15); // Luo rajat
         snake.Setup(levelGrid);
-        levelGrid.Setup(snake);  
+        levelGrid.Setup(snake);
+        SpawnSpeedBoostObj.GetComponent<SpawnSpeedBoost>().SpawnSpeedBoostTime();
     }
-    public static void SnakeDied() {
+    public static void SnakeDied()
+    {
         // kun käärmee kuolee päivitetään mahdollinen uusi piste-ennätys
         Score.TrySetNewHighscore();
         GameOverWindow.ShowStatic();
-        
-       
     }
     //Pysäytetään peli
     public static void GamePaused(bool Pause)
@@ -45,7 +43,7 @@ public class GameHandler : MonoBehaviour {
         {
             Time.timeScale = 1;
             // Piilotetaan nappulat
-            PauseGame.HideStatic();   
+            PauseGame.HideStatic();
         }
     }
 }

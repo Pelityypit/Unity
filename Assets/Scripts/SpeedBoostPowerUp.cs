@@ -14,7 +14,6 @@ public class SpeedBoostPowerUp : MonoBehaviour
     {
         if (SnakeObj.GetComponent<Snake>().snakeAteSpeedBoost == true)
         {
-            Debug.Log("Started");
             StartCoroutine(SpeedBooster(0.1f));
         }
     }
@@ -25,6 +24,7 @@ public class SpeedBoostPowerUp : MonoBehaviour
         yield return new WaitForSeconds(5f);
         snakeSpeed = prevSnakeSpeed;
         prevSnakeSpeed = SnakeObj.GetComponent<Snake>().gridMoveTimerMax = 0.2f; // Palautetaan alkuperäiseen nopeuteen
-        Debug.Log("Ended");
     }
+
+
 }
