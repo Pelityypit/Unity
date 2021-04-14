@@ -217,11 +217,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 154a34f490f85234fbd8fa8106195777, type: 3}
   - {fileID: 21300000, guid: 5fd5ad5054131c147ad9094a313371ad, type: 3}
   - {fileID: 21300000, guid: 93c7cf37aecace943905643ca924b511, type: 3}
-  appleSprite: {fileID: 21300000, guid: 36b87cedd74ebd14db3a8c90b7f03d15, type: 3}
-  questionSprite: {fileID: 21300000, guid: 782e1b633938a654d861e5fc556ed80a, type: 3}
-  poisonReverseSprite: {fileID: 21300000, guid: a808dd95583ca864f8f23235d7b33851,
-    type: 3}
   speedBoostSprite: {fileID: 21300000, guid: 7150130be250c89488b703d7ee89edae, type: 3}
+  escapeDeathSprite: {fileID: 21300000, guid: 8d0ce93fd24d0df49b3328724721377c, type: 3}
   soundAudioClipArray:
   - sound: 0
     audioClip: {fileID: 8300000, guid: 5c4220802c553ad4b8ac235b0c7bb9c3, type: 3}
@@ -1352,6 +1349,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c3f6125670d7fd499b9d0e5cdc5f92e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1186677746
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1186677748}
+  - component: {fileID: 1186677747}
+  m_Layer: 0
+  m_Name: EscapeDeath
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1186677747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1186677746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd8aaa70ae4227042a2e909d1cc22d00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SnakeObj: {fileID: 1697344510}
+  isEscapeDeathActive: 0
+--- !u!4 &1186677748
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1186677746}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.1230872, y: 0.37851274, z: 874.73834}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1261120071
 GameObject:
   m_ObjectHideFlags: 0
@@ -1401,6 +1443,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   snake: {fileID: 1697344513}
   SpawnSpeedBoostObj: {fileID: 5973079}
+  spawnEscapeDeathObj: {fileID: 1676245480}
 --- !u!1 &1290588631
 GameObject:
   m_ObjectHideFlags: 0
@@ -1847,6 +1890,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 151f19c59eb6df74ba1b27e0d7684fab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1676245480
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1676245482}
+  - component: {fileID: 1676245481}
+  m_Layer: 0
+  m_Name: EscapeDeathSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1676245481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1676245480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f1625b92cd24244ca00eb4cc4590f91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  escapeDeathObj: {fileID: 0}
+  SnakeObj: {fileID: 1697344510}
+--- !u!4 &1676245482
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1676245480}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.815077, y: -1.5603733, z: 610.28735}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1697344510
 GameObject:
   m_ObjectHideFlags: 0
@@ -1944,9 +2032,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _particleSystem: {fileID: 2101601480}
   gridMoveTimerMax: 0.2
-  powerupTimeObj: {fileID: 715579286}
+  speedBoostObj: {fileID: 715579286}
   snakeAteSpeedBoost: 0
   spawnSpeedBoostObj: {fileID: 5973079}
+  escapeDeathObj: {fileID: 1186677746}
+  spawnEscapeDeathObj: {fileID: 1676245480}
+  snakeAteEscapeDeath: 0
 --- !u!1 &1905367374
 GameObject:
   m_ObjectHideFlags: 0

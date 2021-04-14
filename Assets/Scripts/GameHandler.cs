@@ -10,6 +10,8 @@ public class GameHandler : MonoBehaviour
     private LevelGrid levelGrid;
     private GameHandler instance;
     public GameObject SpawnSpeedBoostObj;
+    public GameObject spawnEscapeDeathObj;
+
     private void Awake()
     {
         Score.InitializeStatic();
@@ -22,12 +24,15 @@ public class GameHandler : MonoBehaviour
         snake.Setup(levelGrid);
         levelGrid.Setup(snake);
         SpawnSpeedBoostObj.GetComponent<SpawnSpeedBoost>().SpawnSpeedBoostTime();
+        spawnEscapeDeathObj.GetComponent<SpawnEscapeDeath>().SpawnEscapeDeathTime();
     }
     public static void SnakeDied()
     {
+
         // kun käärmee kuolee päivitetään mahdollinen uusi piste-ennätys
         Score.TrySetNewHighscore();
         GameOverWindow.ShowStatic();
+
     }
     //Pysäytetään peli
     public static void GamePaused(bool Pause)

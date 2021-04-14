@@ -9,7 +9,6 @@ using UnityEngine.UI;
 public class Snake : MonoBehaviour
 {
     [SerializeField] ParticleSystem _particleSystem;
-
     private enum Direction
     {
         Left,
@@ -18,7 +17,7 @@ public class Snake : MonoBehaviour
         Down
     }
     //käärmeen state = elävä tai kuollut
-    private enum State
+    public enum State
     {
         Alive,
         Dead
@@ -32,16 +31,17 @@ public class Snake : MonoBehaviour
     private int snakeBodySize; // muuttuja jossa tallennetaan käärmeen koko
     private List<SnakeMovePosition> snakeMovePositionList; // lista johon tallennetaan käärmeen kasvu ja sen osat
     private List<SnakeBodyPart> snakeBodyPartList; // lista johon tallennetaan käärmeen kasvu muutokset
-    public GameObject powerupTimeObj;
+    public GameObject speedBoostObj;
     public bool snakeAteSpeedBoost;
-    //  public bool isPowerUpActive = false;
     public GameObject spawnSpeedBoostObj;
+    public GameObject escapeDeathObj;
+    public GameObject spawnEscapeDeathObj;
+    public bool snakeAteEscapeDeath;
+
     public void Setup(LevelGrid levelGrid)
     {
         this.levelGrid = levelGrid;
     }
-
-
     private void Awake()
     {
         gridPosition = new Vector2Int(0, 0); // asetetaan sijainti: x=10, y=10
@@ -63,6 +63,7 @@ public class Snake : MonoBehaviour
                 HandleInput();
                 HandleGridMovement();
                 spawnSpeedBoostObj.GetComponent<SpawnSpeedBoost>();
+                spawnEscapeDeathObj.GetComponent<SpawnEscapeDeath>();
                 break;
             //Jos state muuttuu kuolleeksi: peli päättyy
             case State.Dead:
@@ -150,10 +151,12 @@ public class Snake : MonoBehaviour
             //muutetaaan gridPosition
             gridPosition += gridMoveDirectionVector;
             bool snakeAteFood = levelGrid.TrySnakeEatFood(gridPosition);
-            bool snakeAteApple = levelGrid.TrySnakeEatApple(gridPosition);
-            bool snakeAteQuestion = levelGrid.TrySnakeEatQuestion(gridPosition);
+            /*  bool snakeAteApple = levelGrid.TrySnakeEatApple(gridPosition);
+             bool snakeAteQuestion = levelGrid.TrySnakeEatQuestion(gridPosition); */
             snakeAteSpeedBoost = spawnSpeedBoostObj.GetComponent<SpawnSpeedBoost>().TrySnakeEatSpeedBoost(gridPosition);
-            if (snakeAteFood || snakeAteApple || snakeAteQuestion)
+            snakeAteEscapeDeath = spawnEscapeDeathObj.GetComponent<SpawnEscapeDeath>().TrySnakeEatEscapeDeath(gridPosition);
+            // || snakeAteApple || snakeAteQuestion
+            if (snakeAteFood)
             {
                 // kun käärme syö, kasvata kehoa
                 snakeBodySize++;
@@ -166,6 +169,28 @@ public class Snake : MonoBehaviour
                 snakeBodySize++;
                 CreateSnakeBodyPart();
             }
+
+            if (snakeAteEscapeDeath)
+            {
+                // state = State.Alive;
+            }
+            /*  if (snakeAteEscapeDeath)
+             {
+                 snakeBodySize++;
+                 CreateSnakeBodyPart();
+                 foreach (SnakeBodyPart snakeBodyPartObj in snakeBodyPartList)
+                 {
+                     Vector2Int snakeBodyPartGridPosition = snakeBodyPartObj.GetGridPosition();
+
+                     if (gridPosition == snakeBodyPartGridPosition) //jos käärmeen pään sijainti on sama kuin jollain sen kehon osalla
+                     {
+
+                         state = State.Alive;
+
+                     }
+                 }
+
+             } */
             // testataan onko lista liian iso perustuen käärmeen kokooon
             if (snakeMovePositionList.Count >= snakeBodySize + 1)
             { // jos listassa on yksi ylimääräinen osa
@@ -190,7 +215,9 @@ public class Snake : MonoBehaviour
                     //Kutsutaan GameHandlerin SnakeDied funktiota
                     GameHandler.SnakeDied();
                 }
+
             }
+
             // päivitetään käärmeen sijainti gridPositionin x ja y arvoilla
             transform.position = new Vector3(gridPosition.x, gridPosition.y);
             // haetaan pään kääntyminen Vector2Intin kulmasta (z-akseli), joka saa parametrina pään suunnan
@@ -338,7 +365,6 @@ public class Snake : MonoBehaviour
     {
         //aikaisemman kehon osan sijainti
         private SnakeMovePosition previousSnakeMovePosition;
-
         private Vector2Int gridPosition;
         private Direction direction;
 

@@ -14,12 +14,12 @@ public class LevelGrid
     private int maxHeight = 15; // Yhden lisää jotta käärme voi syntyä toiselta puolelta
     private int rand;
     private Snake snake;
-    private Vector2Int appleGridPosition;
-    private GameObject appleGameObject;
-    private Vector2Int questionGridPosition;
-    private GameObject questionGameObject;
-    private Vector2Int poisonReverseGridPosition;
-    private GameObject poisonReverseGameObject;
+    /*  private Vector2Int appleGridPosition;
+     private GameObject appleGameObject;
+     private Vector2Int questionGridPosition;
+     private GameObject questionGameObject;
+     private Vector2Int poisonReverseGridPosition;
+     private GameObject poisonReverseGameObject; */
 
     // LevelGrid saa kentän koon parametreina
     public LevelGrid(int minWidth, int maxWidth, int minHeight, int maxHeight)
@@ -39,9 +39,9 @@ public class LevelGrid
             foodGameObject.GetComponent<SpriteRenderer>().sprite = GameAssets.instance.snakeTailSprite;
         }
         SpawnFood();
-        SpawnApple();
-        SpawnQuestion();
-        SpawnPoisonReverse();
+        /*   SpawnApple();
+          SpawnQuestion();
+          SpawnPoisonReverse(); */
     }
     // funktio jolla luodaan ruokaa pelikentälle
     private void SpawnFood()
@@ -79,83 +79,83 @@ public class LevelGrid
         }
     }
 
-    private void SpawnApple()
-    {
-        do
-        {
-            appleGridPosition = new Vector2Int(Random.Range(minWidth + 1, maxWidth - 1), Random.Range(minHeight + 1, maxHeight - 1));
-        }
-        while (snake.GetFullSnakeGridPositionList().IndexOf(appleGridPosition) != -1);
-        appleGameObject = new GameObject("Apple", typeof(SpriteRenderer));
-        appleGameObject.GetComponent<SpriteRenderer>().sprite = GameAssets.instance.appleSprite;
-        appleGameObject.transform.position = new Vector3(appleGridPosition.x, appleGridPosition.y);
-    }
-    public bool TrySnakeEatApple(Vector2Int snakeGridPosition)
-    {
-        if (snakeGridPosition == appleGridPosition)
-        {
-            Object.Destroy(appleGameObject);
-            SpawnApple();
-            Score.AddMoreScore();
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-    private void SpawnQuestion()
-    {
-        do
-        {
-            questionGridPosition = new Vector2Int(Random.Range(minWidth + 1, maxWidth - 1), Random.Range(minHeight + 1, maxHeight - 1));
-        }
-        while (snake.GetFullSnakeGridPositionList().IndexOf(questionGridPosition) != -1);
-        questionGameObject = new GameObject("Question", typeof(SpriteRenderer));
-        questionGameObject.GetComponent<SpriteRenderer>().sprite = GameAssets.instance.questionSprite;
-        questionGameObject.transform.position = new Vector3(questionGridPosition.x, questionGridPosition.y);
-    }
+    /*   private void SpawnApple()
+      {
+          do
+          {
+              appleGridPosition = new Vector2Int(Random.Range(minWidth + 1, maxWidth - 1), Random.Range(minHeight + 1, maxHeight - 1));
+          }
+          while (snake.GetFullSnakeGridPositionList().IndexOf(appleGridPosition) != -1);
+          appleGameObject = new GameObject("Apple", typeof(SpriteRenderer));
+          appleGameObject.GetComponent<SpriteRenderer>().sprite = GameAssets.instance.appleSprite;
+          appleGameObject.transform.position = new Vector3(appleGridPosition.x, appleGridPosition.y);
+      }
+      public bool TrySnakeEatApple(Vector2Int snakeGridPosition)
+      {
+          if (snakeGridPosition == appleGridPosition)
+          {
+              Object.Destroy(appleGameObject);
+              SpawnApple();
+              Score.AddMoreScore();
+              return true;
+          }
+          else
+          {
+              return false;
+          }
+      }
+      private void SpawnQuestion()
+      {
+          do
+          {
+              questionGridPosition = new Vector2Int(Random.Range(minWidth + 1, maxWidth - 1), Random.Range(minHeight + 1, maxHeight - 1));
+          }
+          while (snake.GetFullSnakeGridPositionList().IndexOf(questionGridPosition) != -1);
+          questionGameObject = new GameObject("Question", typeof(SpriteRenderer));
+          questionGameObject.GetComponent<SpriteRenderer>().sprite = GameAssets.instance.questionSprite;
+          questionGameObject.transform.position = new Vector3(questionGridPosition.x, questionGridPosition.y);
+      }
 
-    public bool TrySnakeEatQuestion(Vector2Int snakeGridPosition)
-    {
-        if (snakeGridPosition == questionGridPosition)
-        {
-            Object.Destroy(questionGameObject);
-            SpawnQuestion();
-            //  Score.AddScore(); // Kun käärme syö saa pisteitä
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
+      public bool TrySnakeEatQuestion(Vector2Int snakeGridPosition)
+      {
+          if (snakeGridPosition == questionGridPosition)
+          {
+              Object.Destroy(questionGameObject);
+              SpawnQuestion();
+              //  Score.AddScore(); // Kun käärme syö saa pisteitä
+              return true;
+          }
+          else
+          {
+              return false;
+          }
+      }
 
-    private void SpawnPoisonReverse()
-    {
-        do
-        {
-            poisonReverseGridPosition = new Vector2Int(Random.Range(minWidth + 1, maxWidth - 1), Random.Range(minHeight + 1, maxHeight - 1));
-        }
-        while (snake.GetFullSnakeGridPositionList().IndexOf(poisonReverseGridPosition) != -1);
-        poisonReverseGameObject = new GameObject("PoisonReverse", typeof(SpriteRenderer));
-        poisonReverseGameObject.GetComponent<SpriteRenderer>().sprite = GameAssets.instance.poisonReverseSprite;
-        poisonReverseGameObject.transform.position = new Vector3(poisonReverseGridPosition.x, poisonReverseGridPosition.y);
-    }
-    public bool TrySnakeEatPoisonReverse(Vector2Int snakeGridPosition)
-    {
-        if (snakeGridPosition == poisonReverseGridPosition)
-        {
-            Object.Destroy(poisonReverseGameObject);
-            SpawnPoisonReverse();
-            // Tähän reverse
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
+      private void SpawnPoisonReverse()
+      {
+          do
+          {
+              poisonReverseGridPosition = new Vector2Int(Random.Range(minWidth + 1, maxWidth - 1), Random.Range(minHeight + 1, maxHeight - 1));
+          }
+          while (snake.GetFullSnakeGridPositionList().IndexOf(poisonReverseGridPosition) != -1);
+          poisonReverseGameObject = new GameObject("PoisonReverse", typeof(SpriteRenderer));
+          poisonReverseGameObject.GetComponent<SpriteRenderer>().sprite = GameAssets.instance.poisonReverseSprite;
+          poisonReverseGameObject.transform.position = new Vector3(poisonReverseGridPosition.x, poisonReverseGridPosition.y);
+      }
+      public bool TrySnakeEatPoisonReverse(Vector2Int snakeGridPosition)
+      {
+          if (snakeGridPosition == poisonReverseGridPosition)
+          {
+              Object.Destroy(poisonReverseGameObject);
+              SpawnPoisonReverse();
+              // Tähän reverse
+              return true;
+          }
+          else
+          {
+              return false;
+          }
+      } */
 
     // Käärme liikkuu ruudun läpi
     public Vector2Int ValidateGridPosition(Vector2Int gridPosition)
