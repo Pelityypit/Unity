@@ -11,6 +11,8 @@ public class GameHandler : MonoBehaviour
     private GameHandler instance;
     public GameObject SpawnSpeedBoostObj;
     public GameObject spawnEscapeDeathObj;
+    public GameObject spawnBombObj;
+
 
     private void Awake()
     {
@@ -25,7 +27,9 @@ public class GameHandler : MonoBehaviour
         levelGrid.Setup(snake);
         SpawnSpeedBoostObj.GetComponent<SpawnSpeedBoost>().SpawnSpeedBoostTime();
         spawnEscapeDeathObj.GetComponent<SpawnEscapeDeath>().SpawnEscapeDeathTime();
+        spawnBombObj.GetComponent<SpawnBomb>().SpawnBombTime();
     }
+
     public static void SnakeDied()
     {
 

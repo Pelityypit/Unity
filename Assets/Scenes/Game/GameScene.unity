@@ -166,6 +166,51 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &178043504
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 178043506}
+  - component: {fileID: 178043505}
+  m_Layer: 0
+  m_Name: BombSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &178043505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 178043504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 176d65f635e4e6743927675c37b3f67d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bombObj: {fileID: 0}
+  SnakeObj: {fileID: 1697344510}
+--- !u!4 &178043506
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 178043504}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.815077, y: -1.5603733, z: 610.28735}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &183696044
 GameObject:
   m_ObjectHideFlags: 0
@@ -219,6 +264,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 93c7cf37aecace943905643ca924b511, type: 3}
   speedBoostSprite: {fileID: 21300000, guid: 7150130be250c89488b703d7ee89edae, type: 3}
   escapeDeathSprite: {fileID: 21300000, guid: 8d0ce93fd24d0df49b3328724721377c, type: 3}
+  bombSprite: {fileID: 21300000, guid: 11b473a74e278de4c8620b710ed15e39, type: 3}
   soundAudioClipArray:
   - sound: 0
     audioClip: {fileID: 8300000, guid: 5c4220802c553ad4b8ac235b0c7bb9c3, type: 3}
@@ -1379,6 +1425,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SnakeObj: {fileID: 1697344510}
+  isAlive: 0
   isEscapeDeathActive: 0
 --- !u!4 &1186677748
 Transform:
@@ -1444,6 +1491,7 @@ MonoBehaviour:
   snake: {fileID: 1697344513}
   SpawnSpeedBoostObj: {fileID: 5973079}
   spawnEscapeDeathObj: {fileID: 1676245480}
+  spawnBombObj: {fileID: 178043504}
 --- !u!1 &1290588631
 GameObject:
   m_ObjectHideFlags: 0
@@ -2038,6 +2086,10 @@ MonoBehaviour:
   escapeDeathObj: {fileID: 1186677746}
   spawnEscapeDeathObj: {fileID: 1676245480}
   snakeAteEscapeDeath: 0
+  escapeDeathActive: 0
+  snakeAteBomb: 0
+  bombObj: {fileID: 1944701767}
+  spawnBombObj: {fileID: 178043504}
 --- !u!1 &1905367374
 GameObject:
   m_ObjectHideFlags: 0
@@ -2171,6 +2223,55 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1905367374}
   m_CullTransparentMesh: 0
+--- !u!1 &1944701767
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1944701768}
+  - component: {fileID: 1944701769}
+  m_Layer: 0
+  m_Name: Bomb
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1944701768
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1944701767}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.815077, y: -1.5603733, z: 610.28735}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1944701769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1944701767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f2e5b4c940eb7547a3a034c5cf9618f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bombObject: {fileID: 1944701767}
+  SnakeObj: {fileID: 1697344510}
+  spawnBombObj: {fileID: 178043504}
+  score: 0
+  didSnakeEatBomb: 0
+  isBombSpawned: 0
 --- !u!1 &1967341989
 GameObject:
   m_ObjectHideFlags: 0
@@ -7544,7 +7645,7 @@ PrefabInstance:
     - target: {fileID: 5006741777070805471, guid: c631db7aefd751747a82181d8242fdeb,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5006741777211592419, guid: c631db7aefd751747a82181d8242fdeb,
         type: 3}

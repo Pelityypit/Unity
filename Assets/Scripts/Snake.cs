@@ -37,6 +37,13 @@ public class Snake : MonoBehaviour
     public GameObject escapeDeathObj;
     public GameObject spawnEscapeDeathObj;
     public bool snakeAteEscapeDeath;
+    public bool escapeDeathActive;
+
+    public bool snakeAteBomb;
+    public GameObject bombObj;
+    public GameObject spawnBombObj;
+
+
 
     public void Setup(LevelGrid levelGrid)
     {
@@ -155,6 +162,7 @@ public class Snake : MonoBehaviour
              bool snakeAteQuestion = levelGrid.TrySnakeEatQuestion(gridPosition); */
             snakeAteSpeedBoost = spawnSpeedBoostObj.GetComponent<SpawnSpeedBoost>().TrySnakeEatSpeedBoost(gridPosition);
             snakeAteEscapeDeath = spawnEscapeDeathObj.GetComponent<SpawnEscapeDeath>().TrySnakeEatEscapeDeath(gridPosition);
+            snakeAteBomb = spawnBombObj.GetComponent<SpawnBomb>().TrySnakeEatBomb(gridPosition);
             // || snakeAteApple || snakeAteQuestion
             if (snakeAteFood)
             {
@@ -168,29 +176,21 @@ public class Snake : MonoBehaviour
             {
                 snakeBodySize++;
                 CreateSnakeBodyPart();
+                SoundManager.PlaySound(SoundManager.Sound.SnakeEatFruit);
             }
-
+            // Pakko olla muutoin ei kasvata kehoa syödessä!
             if (snakeAteEscapeDeath)
             {
-                // state = State.Alive;
+                snakeBodySize++;
+                CreateSnakeBodyPart();
+                SoundManager.PlaySound(SoundManager.Sound.SnakeEatFruit);
             }
-            /*  if (snakeAteEscapeDeath)
-             {
-                 snakeBodySize++;
-                 CreateSnakeBodyPart();
-                 foreach (SnakeBodyPart snakeBodyPartObj in snakeBodyPartList)
-                 {
-                     Vector2Int snakeBodyPartGridPosition = snakeBodyPartObj.GetGridPosition();
-
-                     if (gridPosition == snakeBodyPartGridPosition) //jos käärmeen pään sijainti on sama kuin jollain sen kehon osalla
-                     {
-
-                         state = State.Alive;
-
-                     }
-                 }
-
-             } */
+            if (snakeAteBomb)
+            {
+                // Toistaiseksi
+                Score.BombScore();
+                SoundManager.PlaySound(SoundManager.Sound.SnakeEatFruit);
+            }
             // testataan onko lista liian iso perustuen käärmeen kokooon
             if (snakeMovePositionList.Count >= snakeBodySize + 1)
             { // jos listassa on yksi ylimääräinen osa
@@ -199,25 +199,29 @@ public class Snake : MonoBehaviour
 
             UpdateSnakeBodyParts();
             //käydään läpi kaikki kehon osat
-            foreach (SnakeBodyPart snakeBodyPart in snakeBodyPartList)
+            for (int i = 0; i < snakeBodyPartList.Count(); ++i)
+            // foreach (SnakeBodyPart snakeBodyPart in snakeBodyPartList)
             {
-                Vector2Int snakeBodyPartGridPosition = snakeBodyPart.GetGridPosition();
+                Vector2Int snakeBodyPartGridPosition = snakeBodyPartList[i].GetGridPosition();
+                escapeDeathActive = escapeDeathObj.GetComponent<EscapeDeathPowerup>().isEscapeDeathActive;
 
-                if (gridPosition == snakeBodyPartGridPosition) //jos käärmeen pään sijainti on sama kuin jollain sen kehon osalla
+                if (escapeDeathActive && gridPosition == snakeBodyPartGridPosition)
+                {
+                    // Ei kuole törmäyksessä
+                }
+                else if (gridPosition == snakeBodyPartGridPosition) //jos käärmeen pään sijainti on sama kuin jollain sen kehon osalla
                 {
                     //luodaan teksti Dead! ja käärmeen state muuttuu kuolleeksi
                     // CMDebug.TextPopup("Dead!", transform.position);
                     SoundManager.PlaySound(SoundManager.Sound.SnakeDeath); //Kuoleman ääni
-                    //Käärme kuoli
+                                                                           //Käärme kuoli
                     state = State.Dead;
                     // Kun käärme kuolee particle system käynnistyy
                     _particleSystem.Play();
                     //Kutsutaan GameHandlerin SnakeDied funktiota
                     GameHandler.SnakeDied();
                 }
-
             }
-
             // päivitetään käärmeen sijainti gridPositionin x ja y arvoilla
             transform.position = new Vector3(gridPosition.x, gridPosition.y);
             // haetaan pään kääntyminen Vector2Intin kulmasta (z-akseli), joka saa parametrina pään suunnan

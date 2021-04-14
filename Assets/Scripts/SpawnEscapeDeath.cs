@@ -12,6 +12,7 @@ public class SpawnEscapeDeath : MonoBehaviour
     private int minHeight = -15;
     private int maxHeight = 15;
     private float seconds;
+    
     public void SpawnEscapeDeathTime()
     {
         StartCoroutine(EscapeDeathTimer());
