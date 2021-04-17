@@ -9,7 +9,9 @@ public static class SoundManager
         SnakeEatFruit,
         SnakeTurn,
         SnakeDeath,
-
+        EscapeDeath,
+        SpeedBoost,
+        Bomb
     }
     public static void PlaySound(Sound sound)
     {
@@ -28,8 +30,10 @@ public static class SoundManager
             }
         }
         return null;
+
     }
 }
+
 
 
 

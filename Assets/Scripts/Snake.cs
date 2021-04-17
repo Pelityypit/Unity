@@ -159,12 +159,9 @@ public class Snake : MonoBehaviour
             //muutetaaan gridPosition
             gridPosition += gridMoveDirectionVector;
             bool snakeAteFood = spawnFoodObj.GetComponent<SpawnFood>().TrySnakeEatFood(gridPosition);
-            /*  bool snakeAteApple = levelGrid.TrySnakeEatApple(gridPosition);
-             bool snakeAteQuestion = levelGrid.TrySnakeEatQuestion(gridPosition); */
             snakeAteSpeedBoost = spawnSpeedBoostObj.GetComponent<SpawnSpeedBoost>().TrySnakeEatSpeedBoost(gridPosition);
             snakeAteEscapeDeath = spawnEscapeDeathObj.GetComponent<SpawnEscapeDeath>().TrySnakeEatEscapeDeath(gridPosition);
             snakeAteBomb = spawnBombObj.GetComponent<SpawnBomb>().TrySnakeEatBomb(gridPosition);
-            // || snakeAteApple || snakeAteQuestion
             if (snakeAteFood)
             {
                 // kun käärme syö, kasvata kehoa
@@ -177,20 +174,20 @@ public class Snake : MonoBehaviour
             {
                 snakeBodySize++;
                 CreateSnakeBodyPart();
-                SoundManager.PlaySound(SoundManager.Sound.SnakeEatFruit);
+                SoundManager.PlaySound(SoundManager.Sound.SpeedBoost);
             }
             // Pakko olla muutoin ei kasvata kehoa syödessä!
             if (snakeAteEscapeDeath)
             {
                 snakeBodySize++;
                 CreateSnakeBodyPart();
-                SoundManager.PlaySound(SoundManager.Sound.SnakeEatFruit);
+                SoundManager.PlaySound(SoundManager.Sound.EscapeDeath);
             }
             if (snakeAteBomb)
             {
                 // Toistaiseksi
                 Score.BombScore();
-                SoundManager.PlaySound(SoundManager.Sound.SnakeEatFruit);
+                SoundManager.PlaySound(SoundManager.Sound.Bomb);
             }
             // testataan onko lista liian iso perustuen käärmeen kokooon
             if (snakeMovePositionList.Count >= snakeBodySize + 1)

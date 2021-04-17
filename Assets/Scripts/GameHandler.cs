@@ -25,7 +25,6 @@ public class GameHandler : MonoBehaviour
     {
         levelGrid = new LevelGrid(-20, 20, -15, 15); // Luo rajat
         snake.Setup(levelGrid);
-        //  levelGrid.Setup(snake);
         SpawnSpeedBoostObj.GetComponent<SpawnSpeedBoost>().SpawnSpeedBoostTime();
         spawnEscapeDeathObj.GetComponent<SpawnEscapeDeath>().SpawnEscapeDeathTime();
         spawnBombObj.GetComponent<SpawnBomb>().SpawnBombTime();
