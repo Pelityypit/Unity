@@ -31,19 +31,20 @@ public class Snake : MonoBehaviour
     private int snakeBodySize; // muuttuja jossa tallennetaan käärmeen koko
     private List<SnakeMovePosition> snakeMovePositionList; // lista johon tallennetaan käärmeen kasvu ja sen osat
     private List<SnakeBodyPart> snakeBodyPartList; // lista johon tallennetaan käärmeen kasvu muutokset
+
+    // GameObjectit
     public GameObject speedBoostObj;
-    public bool snakeAteSpeedBoost;
     public GameObject spawnSpeedBoostObj;
     public GameObject escapeDeathObj;
     public GameObject spawnEscapeDeathObj;
-    public bool snakeAteEscapeDeath;
-    public bool escapeDeathActive;
-
-    public bool snakeAteBomb;
     public GameObject bombObj;
     public GameObject spawnBombObj;
+    public GameObject spawnFoodObj;
 
-
+    public bool snakeAteSpeedBoost;
+    public bool snakeAteEscapeDeath;
+    public bool escapeDeathActive;
+    public bool snakeAteBomb;
 
     public void Setup(LevelGrid levelGrid)
     {
@@ -157,7 +158,7 @@ public class Snake : MonoBehaviour
             }
             //muutetaaan gridPosition
             gridPosition += gridMoveDirectionVector;
-            bool snakeAteFood = levelGrid.TrySnakeEatFood(gridPosition);
+            bool snakeAteFood = spawnFoodObj.GetComponent<SpawnFood>().TrySnakeEatFood(gridPosition);
             /*  bool snakeAteApple = levelGrid.TrySnakeEatApple(gridPosition);
              bool snakeAteQuestion = levelGrid.TrySnakeEatQuestion(gridPosition); */
             snakeAteSpeedBoost = spawnSpeedBoostObj.GetComponent<SpawnSpeedBoost>().TrySnakeEatSpeedBoost(gridPosition);

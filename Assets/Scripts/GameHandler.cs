@@ -9,10 +9,11 @@ public class GameHandler : MonoBehaviour
     [SerializeField] private Snake snake;
     private LevelGrid levelGrid;
     private GameHandler instance;
+    // Spawn food & powerups objects
     public GameObject SpawnSpeedBoostObj;
     public GameObject spawnEscapeDeathObj;
     public GameObject spawnBombObj;
-
+    public GameObject spawnFoodObj;
 
     private void Awake()
     {
@@ -24,15 +25,15 @@ public class GameHandler : MonoBehaviour
     {
         levelGrid = new LevelGrid(-20, 20, -15, 15); // Luo rajat
         snake.Setup(levelGrid);
-        levelGrid.Setup(snake);
+        //  levelGrid.Setup(snake);
         SpawnSpeedBoostObj.GetComponent<SpawnSpeedBoost>().SpawnSpeedBoostTime();
         spawnEscapeDeathObj.GetComponent<SpawnEscapeDeath>().SpawnEscapeDeathTime();
         spawnBombObj.GetComponent<SpawnBomb>().SpawnBombTime();
+        spawnFoodObj.GetComponent<SpawnFood>().SpawnFoods();
     }
 
     public static void SnakeDied()
     {
-
         // kun käärmee kuolee päivitetään mahdollinen uusi piste-ennätys
         Score.TrySetNewHighscore();
         GameOverWindow.ShowStatic();

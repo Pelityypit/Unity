@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 public class SpeedBoostPowerUp : MonoBehaviour
 {
     public GameObject SnakeObj;
-    public bool isPowerUpActive = false;
     public float snakeSpeed;
     public float prevSnakeSpeed;
     public void Update()

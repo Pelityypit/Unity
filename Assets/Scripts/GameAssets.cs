@@ -21,9 +21,6 @@ public class GameAssets : MonoBehaviour
     public Sprite snakeBodySprite;
     public Sprite snakeTailSprite;
     public Sprite[] foodSprite;
-    /*  public Sprite appleSprite;
-     public Sprite questionSprite;
-     public Sprite poisonReverseSprite; */
     public Sprite speedBoostSprite;
     public Sprite escapeDeathSprite;
     public Sprite bombSprite;
