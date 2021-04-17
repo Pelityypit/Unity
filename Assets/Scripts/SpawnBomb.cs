@@ -12,6 +12,7 @@ public class SpawnBomb : MonoBehaviour
     private int minHeight = -15;
     private int maxHeight = 15;
     private float seconds;
+    bool didSnakeEat;
     public void SpawnBombTime()
     {
         StartCoroutine(BombTimer());
@@ -28,13 +29,30 @@ public class SpawnBomb : MonoBehaviour
         bombObj = new GameObject("EscapeDeath", typeof(SpriteRenderer));
         bombObj.GetComponent<SpriteRenderer>().sprite = GameAssets.instance.bombSprite;
         bombObj.transform.position = new Vector3(bombGridPosition.x, bombGridPosition.y);
+        StartCoroutine(SpawnTimeForBomb());
+    }
+    IEnumerator SpawnTimeForBomb()
+    {
+
+        didSnakeEat = SnakeObj.GetComponent<Snake>().snakeAteBomb;
+        if (didSnakeEat == false)
+        {
+            yield return new WaitForSeconds(10f);
+
+            Object.Destroy(bombObj);
+            StartCoroutine(BombTimer());
+
+        }
     }
     public bool TrySnakeEatBomb(Vector2Int snakeGridPosition)
     {
         if (snakeGridPosition == bombGridPosition)
         {
             Object.Destroy(bombObj);
-            SpawnBombTime();
+            if (didSnakeEat == true)
+            {
+                SpawnBombTime();
+            }
             return true;
         }
         else

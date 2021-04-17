@@ -12,7 +12,8 @@ public class SpawnEscapeDeath : MonoBehaviour
     private int minHeight = -15;
     private int maxHeight = 15;
     private float seconds;
-    
+    bool didSnakeEat;
+
     public void SpawnEscapeDeathTime()
     {
         StartCoroutine(EscapeDeathTimer());
@@ -29,13 +30,30 @@ public class SpawnEscapeDeath : MonoBehaviour
         escapeDeathObj = new GameObject("EscapeDeath", typeof(SpriteRenderer));
         escapeDeathObj.GetComponent<SpriteRenderer>().sprite = GameAssets.instance.escapeDeathSprite;
         escapeDeathObj.transform.position = new Vector3(escapeDeathGridPosition.x, escapeDeathGridPosition.y);
+        StartCoroutine(SpawnTimeForEscapeDeath());
+    }
+    IEnumerator SpawnTimeForEscapeDeath()
+    {
+
+        didSnakeEat = SnakeObj.GetComponent<Snake>().snakeAteEscapeDeath;
+        if (didSnakeEat == false)
+        {
+            yield return new WaitForSeconds(10f);
+
+            Object.Destroy(escapeDeathObj);
+            StartCoroutine(EscapeDeathTimer());
+
+        }
     }
     public bool TrySnakeEatEscapeDeath(Vector2Int snakeGridPosition)
     {
         if (snakeGridPosition == escapeDeathGridPosition)
         {
             Object.Destroy(escapeDeathObj);
-            SpawnEscapeDeathTime();
+            if (didSnakeEat == true)
+            {
+                SpawnEscapeDeathTime();
+            }
             return true;
         }
         else

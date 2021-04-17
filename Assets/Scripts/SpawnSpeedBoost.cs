@@ -12,10 +12,13 @@ public class SpawnSpeedBoost : MonoBehaviour
     private int minHeight = -15;
     private int maxHeight = 15;
     private float seconds;
+    bool didSnakeEat;
     public void SpawnSpeedBoostTime()
     {
         StartCoroutine(SpeedBoostTimer());
+
     }
+
     IEnumerator SpeedBoostTimer()
     {
         seconds = Random.Range(5f, 10f); // Randomoidaan aikaväli jolloin speedboost spawnaa
@@ -28,6 +31,20 @@ public class SpawnSpeedBoost : MonoBehaviour
         speedBoostGameObject = new GameObject("SpeedBoost", typeof(SpriteRenderer));
         speedBoostGameObject.GetComponent<SpriteRenderer>().sprite = GameAssets.instance.speedBoostSprite;
         speedBoostGameObject.transform.position = new Vector3(speedBoostGridPosition.x, speedBoostGridPosition.y);
+        StartCoroutine(SpawnTimeForSpeedBoost());
+    }
+    IEnumerator SpawnTimeForSpeedBoost()
+    {
+
+        didSnakeEat = SnakeObj.GetComponent<Snake>().snakeAteSpeedBoost;
+        if (didSnakeEat == false)
+        {
+            yield return new WaitForSeconds(10f);
+
+            Object.Destroy(speedBoostGameObject);
+            StartCoroutine(SpeedBoostTimer());
+            //  SpawnSpeedBoostTime();
+        }
     }
 
     public bool TrySnakeEatSpeedBoost(Vector2Int snakeGridPosition)
@@ -35,7 +52,10 @@ public class SpawnSpeedBoost : MonoBehaviour
         if (snakeGridPosition == speedBoostGridPosition)
         {
             Object.Destroy(speedBoostGameObject);
-            SpawnSpeedBoostTime();
+            if (didSnakeEat == true)
+            {
+                SpawnSpeedBoostTime();
+            }
             return true;
         }
         else
