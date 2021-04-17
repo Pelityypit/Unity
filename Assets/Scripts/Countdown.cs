@@ -8,6 +8,8 @@ public class Countdown : MonoBehaviour
     public int countdownTime;
     public Text countdownDisplay;
 
+    AudioSource countdownStart;
+    public AudioSource countdownEnd;
     private void Start()
     {
         StartCoroutine(CountdownToStart());
@@ -19,13 +21,15 @@ public class Countdown : MonoBehaviour
         {
             countdownDisplay.text = countdownTime.ToString();
             // Numero on ruudulla sekunnin
+            countdownStart = GetComponent<AudioSource>();
+            countdownStart.Play();
             yield return new WaitForSeconds(1f);
             // Laskee aikaa alaspäin
             countdownTime--;
         }
         // Ennekuin peli alkaa ilmestyy "GO!" ruudulle
         countdownDisplay.text = "GO!";
-        // "GO!" näkyy ruudulla 2 sekuntia
+        countdownEnd.Play();
         yield return new WaitForSeconds(1f);
         // "GO!" jälkeen vaihtuu ruutu peliruutuun
         SceneManager.LoadScene("GameScene");

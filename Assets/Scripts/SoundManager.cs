@@ -9,6 +9,7 @@ public static class SoundManager
         SnakeEatFruit,
         SnakeTurn,
         SnakeDeath,
+
     }
     public static void PlaySound(Sound sound)
     {
