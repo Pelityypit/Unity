@@ -185,9 +185,8 @@ public class Snake : MonoBehaviour
             }
             if (snakeAteBomb)
             {
-                // Toistaiseksi
-                Score.BombScore();
                 SoundManager.PlaySound(SoundManager.Sound.Bomb);
+
             }
             // testataan onko lista liian iso perustuen käärmeen kokooon
             if (snakeMovePositionList.Count >= snakeBodySize + 1)

@@ -38,8 +38,13 @@ public class SpawnBomb : MonoBehaviour
         if (didSnakeEat == false)
         {
             yield return new WaitForSeconds(10f);
+            if (bombObj != null)
+            {
+                bombObj.SetActive(false);
+                Object.Destroy(bombObj);
+                Score.BombScore();
 
-            Object.Destroy(bombObj);
+            }
             StartCoroutine(BombTimer());
 
         }
@@ -48,7 +53,13 @@ public class SpawnBomb : MonoBehaviour
     {
         if (snakeGridPosition == bombGridPosition)
         {
-            Object.Destroy(bombObj);
+            didSnakeEat = SnakeObj.GetComponent<Snake>().snakeAteBomb;
+            if (bombObj != null)
+            {
+                bombObj.SetActive(false);
+                Object.Destroy(bombObj);
+
+            }
             if (didSnakeEat == true)
             {
                 SpawnBombTime();
