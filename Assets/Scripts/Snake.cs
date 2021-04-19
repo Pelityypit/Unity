@@ -40,11 +40,13 @@ public class Snake : MonoBehaviour
     public GameObject bombObj;
     public GameObject spawnBombObj;
     public GameObject spawnFoodObj;
+    public GameObject spawnQuestionMarkObj;
 
     public bool snakeAteSpeedBoost;
     public bool snakeAteEscapeDeath;
     public bool escapeDeathActive;
     public bool snakeAteBomb;
+    public bool snakeAteQuestionMark;
 
     public void Setup(LevelGrid levelGrid)
     {
@@ -72,6 +74,7 @@ public class Snake : MonoBehaviour
                 HandleGridMovement();
                 spawnSpeedBoostObj.GetComponent<SpawnSpeedBoost>();
                 spawnEscapeDeathObj.GetComponent<SpawnEscapeDeath>();
+                spawnQuestionMarkObj.GetComponent <SpawnQuestionMark>();
                 break;
             //Jos state muuttuu kuolleeksi: peli päättyy
             case State.Dead:
@@ -162,6 +165,7 @@ public class Snake : MonoBehaviour
             snakeAteSpeedBoost = spawnSpeedBoostObj.GetComponent<SpawnSpeedBoost>().TrySnakeEatSpeedBoost(gridPosition);
             snakeAteEscapeDeath = spawnEscapeDeathObj.GetComponent<SpawnEscapeDeath>().TrySnakeEatEscapeDeath(gridPosition);
             snakeAteBomb = spawnBombObj.GetComponent<SpawnBomb>().TrySnakeEatBomb(gridPosition);
+            snakeAteQuestionMark = spawnQuestionMarkObj.GetComponent<SpawnQuestionMark>().TrySnakeEatQuestionMark(gridPosition);
             if (snakeAteFood)
             {
                 // kun käärme syö, kasvata kehoa
@@ -187,6 +191,10 @@ public class Snake : MonoBehaviour
             {
                 SoundManager.PlaySound(SoundManager.Sound.Bomb);
 
+            }
+            if (snakeAteQuestionMark)
+            {
+                SoundManager.PlaySound(SoundManager.Sound.SnakeEatFruit);
             }
             // testataan onko lista liian iso perustuen käärmeen kokooon
             if (snakeMovePositionList.Count >= snakeBodySize + 1)
@@ -382,7 +390,7 @@ public class Snake : MonoBehaviour
             return gridPosition;
         }
 
-        public Direction GetDirection()
+        public Direction GetDirection() 
         {
             return direction;
         }

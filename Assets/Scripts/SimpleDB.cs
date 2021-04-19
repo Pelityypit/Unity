@@ -27,7 +27,7 @@ public class SimpleDB : MonoBehaviour
             // set up and object (called "command") to allow db control
             using (var command = connection.CreateCommand())
             {
-                command.CommandText = "CREATE TABLE IF NOT EXISTS questions (text VARCHAR(50);";
+                command.CommandText = "CREATE TABLE IF NOT EXISTS questions (question VARCHAR(50));";
                 command.ExecuteNonQuery();
             }
             connection.Close();
@@ -41,7 +41,7 @@ public class SimpleDB : MonoBehaviour
 
             using (var command = connection.CreateCommand())
             {
-                command.CommandText = "INSERT INTO questions (text) VALUES ('" + "Mitä kuuluu?" + "');";
+                command.CommandText = "INSERT INTO questions (question) VALUES ('" + "Mitä kuuluu?" + "');";
                 command.ExecuteNonQuery(); //  this runs the SQL command
             }
             connection.Close();
@@ -57,12 +57,12 @@ public class SimpleDB : MonoBehaviour
             using (var command = connection.CreateCommand())
             {
                 // select everything from the table "questions"
-                command.CommandText = "SELECT * FROM weapons;";
+                command.CommandText = "SELECT * FROM questions;";
 
                 using (IDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
-                    Debug.Log("Question: " + reader["text"]);
+                    Debug.Log("Question: " + reader["question"]);
 
                     reader.Close();
                 }

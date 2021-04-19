@@ -14,6 +14,7 @@ public class GameHandler : MonoBehaviour
     public GameObject spawnEscapeDeathObj;
     public GameObject spawnBombObj;
     public GameObject spawnFoodObj;
+    public GameObject spawnQuestionObj;
 
     private void Awake()
     {
@@ -29,6 +30,7 @@ public class GameHandler : MonoBehaviour
         spawnEscapeDeathObj.GetComponent<SpawnEscapeDeath>().SpawnEscapeDeathTime();
         spawnBombObj.GetComponent<SpawnBomb>().SpawnBombTime();
         spawnFoodObj.GetComponent<SpawnFood>().SpawnFoods();
+        spawnQuestionObj.GetComponent<SpawnQuestionMark>().SpawnQuestionMarkTime();
     }
 
     public static void SnakeDied()

@@ -17,6 +17,7 @@ public class PauseGame : MonoBehaviour
 
             GameHandler.GamePaused(false);
 
+
         };
         //Haetaan extiGame -nappi 
         transform.Find("exitBtn").GetComponent<Button_UI>().ClickFunc = () =>
@@ -40,7 +41,7 @@ public class PauseGame : MonoBehaviour
     {
         gameObject.SetActive(false);
     }
-    //Staattinen show()
+    //Staattinen show() kun gameObject ei hyväksy staattista funktiota
     public static void ShowStatic()
     {
         instance.Show();

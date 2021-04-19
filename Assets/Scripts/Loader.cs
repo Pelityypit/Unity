@@ -12,6 +12,7 @@ public static class Loader
         GameScene,
         LOADING,
         MainMenu,
+        QuestionScene,
     }
 
     private static Action loaderCallbackAction;

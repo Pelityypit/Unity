@@ -24,7 +24,9 @@ public class GameAssets : MonoBehaviour
     public Sprite speedBoostSprite;
     public Sprite escapeDeathSprite;
     public Sprite bombSprite;
+    public Sprite questionMarkSprite;
     public SoundAudioClip[] soundAudioClipArray;
+    
 
     [Serializable]
     public class SoundAudioClip

@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/LoadingScene/LOADING.unity
     guid: b5d0788e84d09cd47a217a6ed6f18c9e
+  - enabled: 1
+    path: Assets/Scenes/Question/QuestionScene.unity
+    guid: 7ceb5105f9a01414bb66ffa35d2633d0
   m_configObjects: {}

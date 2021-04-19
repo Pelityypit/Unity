@@ -47,6 +47,11 @@ public class SceneLoader : MonoBehaviour
        SceneManager.LoadScene("Scoreboard");
    }
 
+    public void QuestionScene()
+    {
+        LoadNextLevel();
+        SceneManager.LoadScene("QuestionScene");
+    }
     //Siirrytään takaisin päävalikkoon
    public void BackToMainMenu()
    {
@@ -59,6 +64,7 @@ public class SceneLoader : MonoBehaviour
    {
        SceneManager.LoadScene("MainMenu");
    }
+    
 
     //Lopetetaan peli
    public void QuitGame()
@@ -68,4 +74,5 @@ public class SceneLoader : MonoBehaviour
        Application.Quit();
        Debug.Log("Quit!");
    }
+    
 }
