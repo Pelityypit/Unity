@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using CodeMonkey.Utils;
+using UnityEngine.UI;
 
 public class QuestionWindow : MonoBehaviour
 {
@@ -12,6 +13,9 @@ public class QuestionWindow : MonoBehaviour
     private void Awake()
     {
         instance = this;
+
+        
+
         //Haetaan back -nappi 
         transform.Find("backBtn").GetComponent<Button_UI>().ClickFunc = () =>
         {
@@ -43,8 +47,7 @@ public class QuestionWindow : MonoBehaviour
             CodeMonkey.CMDebug.TextPopup("Good answer!", transform.position);
         };
 
-       
-
-
     }
+
+     
 }
