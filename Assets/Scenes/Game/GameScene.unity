@@ -600,6 +600,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce87a11dc7d3c51419c8d4f01784ed2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  questionPrefab: {fileID: 0}
+  questionParent: {fileID: 0}
 --- !u!4 &265542428
 Transform:
   m_ObjectHideFlags: 0
@@ -703,6 +705,7 @@ GameObject:
   - component: {fileID: 519420032}
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
+  - component: {fileID: 519420030}
   m_Layer: 5
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -718,6 +721,18 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_Enabled: 1
+--- !u!114 &519420030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61c160758b41dd74f843019128e85f98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -1520,7 +1535,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SnakeObj: {fileID: 1697344510}
   snakeSpeed: 0
-  prevSnakeSpeed: 0
 --- !u!4 &1120202472
 Transform:
   m_ObjectHideFlags: 0
@@ -7834,7 +7848,7 @@ PrefabInstance:
     - target: {fileID: 5006741777070805471, guid: c631db7aefd751747a82181d8242fdeb,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5006741777211592419, guid: c631db7aefd751747a82181d8242fdeb,
         type: 3}
